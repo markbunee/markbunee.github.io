@@ -1,0 +1,289 @@
+/* ========== 全局 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #333;
+}
+
+/* ========== 右上角导航：设计感标题跳转 ========== */
+.site-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    padding: 28px 36px 28px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.site-nav a {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.site-nav a:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.site-nav a.active {
+    color: #ff4444;
+    border-color: rgba(255, 68, 68, 0.5);
+    background: rgba(255, 68, 68, 0.08);
+}
+
+/* 内页（简历/公告）时导航在浅色背景上 */
+body.page-resume .site-nav a,
+body.page-notice .site-nav a {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.page-resume .site-nav a:hover,
+body.page-notice .site-nav a:hover {
+    color: #111;
+    border-color: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+body.page-resume .site-nav a.active,
+body.page-notice .site-nav a.active {
+    color: #c62828;
+    border-color: rgba(198, 40, 40, 0.4);
+    background: rgba(198, 40, 40, 0.06);
+}
+
+/* ========== Hero 加载动画（仅首页） ========== */
+.hero {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.hero.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.hero-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.hero-video {
+    max-width: min(560px, 90vw);
+    max-height: 50vh;
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: #fff;
+    margin: 0;
+    text-align: center;
+}
+
+/* ========== 主页内容区（第一页）：加载视频 + MedCraft ========== */
+.main-content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.3s;
+}
+
+.main-content.visible {
+    opacity: 1;
+}
+
+/* ========== 内页通用（简历 / 公告） ========== */
+.page-wrap {
+    min-height: 100vh;
+    padding: 100px 20px 60px;
+    background: #e8e8e8;
+}
+
+.page-wrap .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    text-align: left;
+}
+
+.page-wrap h1 {
+    color: #1a1a1a;
+    font-size: 2rem;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ff4444;
+    display: inline-block;
+}
+
+.page-wrap .subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 32px;
+}
+
+/* ========== 简历页：简约典雅浅灰模版 ========== */
+.resume-wrap {
+    background: #e5e5e5;
+}
+
+.resume {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 48px 64px;
+    background: #fafafa;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e0e0e0;
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.resume-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    letter-spacing: 0.08em;
+    margin: 0 0 10px 0;
+    padding: 0;
+    border: none;
+}
+
+.resume-meta {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.resume-meta a {
+    color: #555;
+    text-decoration: none;
+}
+
+.resume-meta a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.resume-section {
+    margin-bottom: 32px;
+}
+
+.resume-section:last-child {
+    margin-bottom: 0;
+}
+
+.resume-section h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+}
+
+.resume-item {
+    margin-bottom: 22px;
+}
+
+.resume-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-item-title {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.resume-item-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 6px;
+}
+
+.resume-item-desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.resume-skill {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 600px) {
+    .site-nav {
+        padding: 20px 20px 20px 12px;
+        gap: 4px;
+    }
+    .site-nav a {
+        padding: 8px 12px;
+        font-size: 0.88rem;
+    }
+    .page-wrap {
+        padding: 88px 16px 40px;
+    }
+    .page-wrap .container {
+        padding: 28px 24px;
+    }
+    .resume {
+        padding: 36px 24px 48px;
+    }
+    .resume-header h1 {
+        font-size: 1.5rem;
+    }
+}

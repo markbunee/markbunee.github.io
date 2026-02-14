@@ -3,229 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>白怿的个人主页</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 600px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            z-index: 0;
-        }
-        
-        .content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            font-size: 2.8rem;
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            border-radius: 2px;
-        }
-        
-        .greeting {
-            font-size: 1.8rem;
-            color: #3498db;
-            margin: 25px 0;
-            font-weight: 600;
-        }
-        
-        .update-notice {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 25px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 2s infinite;
-        }
-        
-        .update-notice i {
-            color: #2196f3;
-            font-size: 1.5rem;
-            margin-right: 10px;
-        }
-        
-        .contact-info {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .email {
-            font-size: 1.4rem;
-            color: #e74c3c;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin: 15px 0;
-        }
-        
-        .email:hover {
-            color: #c0392b;
-            transform: translateY(-3px);
-        }
-        
-        .name {
-            font-size: 2.2rem;
-            color: #2c3e50;
-            margin: 25px 0;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .username {
-            display: inline-block;
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: #f1f1f1;
-            border-radius: 50%;
-            color: #3498db;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .social-icons a:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(to right, #6a11cb, #2575fc);
-            color: white;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(33, 150, 243, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .greeting {
-                font-size: 1.5rem;
-            }
-            
-            .email {
-                font-size: 1.1rem;
-            }
-            
-            .name {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+    <title>白怿 · 个人主页</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <h1>全面更新与设计中</h1>
-            
-            <div class="greeting">
-                <i class="fas fa-hand-wave"></i> Hello & Welcome
-            </div>
-            
-            <div class="update-notice">
-                <i class="fas fa-sync-alt"></i>
-                <p>临时界面</p>
-            </div>
-            
-            <div class="contact-info">
-                <p>联系邮箱</p>
-                <a href="mailto:3195824330@qq.com" class="email">
-                    <i class="fas fa-envelope"></i> 3195824330@qq.com
-                </a>
-            </div>
-            
-            <div class="name">
-                <i class="fas fa-user"></i> 白怿
-            </div>
-            
-            <div class="username">
-                <i class="fas fa-at"></i> markbunee
-            </div>
-            
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-weixin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-            </div>
+    <!-- 右上角导航：主页 | 简历 | 公告 -->
+    <nav class="site-nav">
+        <a href="index.html" class="active">主页</a>
+        <a href="pages/resume.html">简历</a>
+        <a href="pages/notice.html">公告</a>
+    </nav>
+
+    <!-- 主界面加载：黑色背景 + 居中加载视频 + 白色 MedCraft -->
+    <section class="hero" id="hero">
+        <div class="hero-center">
+            <video class="hero-video" src="assets/loading.mp4" autoplay muted loop playsinline></video>
+            <h1 class="hero-title">MedCraft</h1>
         </div>
-    </div>
+    </section>
+
+    <!-- 第一页：主页 — 加载视频 + MedCraft -->
+    <main class="main-content" id="main-content">
+        <div class="hero-center">
+            <video class="hero-video" src="assets/loading.mp4" autoplay muted loop playsinline></video>
+            <h1 class="hero-title">MedCraft</h1>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
