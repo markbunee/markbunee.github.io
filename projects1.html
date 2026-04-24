@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>项目经历 | 马炫轩</title>
+    <meta name="description" content="马炫轩项目经历：市场偏好洞察与闪存性能分析平台" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./index.html">Owen Ma</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="./index.html">首页</a>
+        <a href="./internship.html">实习经历</a>
+        <a href="./projects.html">项目经历</a>
+        <a href="./research.html">折腾研究</a>
+        <a href="./status.html">最近状态</a>
+        <a href="./about.html">关于我</a>
+        <a href="./contact.html">联系</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero project-hero">
+        <div class="reveal-card" data-reveal>
+          <p class="eyebrow">Project Experience</p>
+          <h1>
+            项目经历<br />
+            <span>从数据分析到业务结论的闭环实践</span>
+          </h1>
+          <p class="lead">两个项目分别聚焦医疗市场洞察与存储性能分析，均包含完整过程与结果。</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>项目 1：结直肠癌内窥镜市场偏好洞察</h2>
+          <p class="sub">2025.02 - 2025.05</p>
+        </div>
+
+        <details class="detail-card reveal-card" data-reveal open>
+          <summary>
+            <div class="detail-head">
+              <h3>用户画像构建 + 聚类分群 + 推荐策略落地</h3>
+              <p>从数据清洗到策略输出的一体化流程</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>输入数据：整合 600+ 条采购数据与 300+ 份临床反馈。</li>
+              <li>关键动作：SQL + Python 清洗数据并做特征工程，构建医疗机构用户画像。</li>
+              <li>关键动作：采用 K-Means 聚类，将机构分为高精准度导向型与成本敏感型。</li>
+              <li>关键动作：搭建规则 + 协同过滤混合推荐模型，利用决策树识别 Top3 关键因素（含采购预算）。</li>
+            </ul>
+            <p class="project-result">结果：聚类轮廓系数 0.82，Top-3 推荐命中率 78%。</p>
+            <div class="stack-row">
+              <span>SQL</span>
+              <span>Python</span>
+              <span>K-Means</span>
+              <span>Decision Tree</span>
+              <span>Hybrid Recommendation</span>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>项目 2：闪存仿真系统性能分析与可视化平台</h2>
+          <p class="sub">2025.08 - 2025.12（独立开发）</p>
+        </div>
+
+        <details class="detail-card reveal-card" data-reveal open>
+          <summary>
+            <div class="detail-head">
+              <h3>性能数据建模 + 相关性分析 + Power BI 看板</h3>
+              <p>围绕 IOPS、带宽、延迟做瓶颈识别</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>输入数据：基于 MQSim 仿真日志，建立 SSD 性能数据集（IOPS、带宽、平均/尾延迟）。</li>
+              <li>关键动作：SQL 进行表结构设计、多表关联与聚合；Python 完成清洗与宽表建模。</li>
+              <li>关键动作：用分布分析 + 时间序列分析识别不同参数配置下的性能瓶颈。</li>
+              <li>关键动作：用 NumPy/Matplotlib 计算 Pearson 相关系数并绘制热力图；Power BI 搭建联动看板。</li>
+            </ul>
+            <p class="project-result">结果：可快速定位异常波动与关键指标组合，提升参数调优效率。</p>
+            <div class="stack-row">
+              <span>MQSim</span>
+              <span>SQL</span>
+              <span>Python</span>
+              <span>NumPy / Matplotlib</span>
+              <span>Power BI</span>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>© 2026 Owen Ma · Projects</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
