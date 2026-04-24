@@ -1,18 +1,18 @@
 {
   "posts": [
     {
-      "title": "读论文笔记：DVSU",
+      "title": "我们应该保有信心，没有条件创造条件",
       "file": "我们应该保有信心，没有条件创造条件.md",
       "date": "2025-05-27",
       "tags": [],
       "summary": ""
     },
     {
-      "title": "MoE 在医学影像解耦里的用法：DGS-MI2",
-      "file": "dgs-mi2.md",
+      "title": "Concise manual of design and technology",
+      "file": "Concise manual of design and technology.md",
       "date": "2025-10-01",
-      "tags": ["Medical Imaging", "MoE", "Contrastive"],
-      "summary": "Dual-Gate shared/private + 对比约束"
+      "tags": [],
+      "summary": ""
     }
   ]
 }

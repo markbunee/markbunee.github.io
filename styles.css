@@ -40,6 +40,15 @@ body {
   min-height: 100vh;
 }
 
+body.page-home {
+  background:
+    radial-gradient(720px 380px at 15% -10%, rgba(216, 236, 255, 0.75) 0%, transparent 50%),
+    radial-gradient(900px 540px at 100% 0%, rgba(246, 240, 255, 0.72) 0%, transparent 50%),
+    linear-gradient(180deg, rgba(245, 245, 247, 0.62) 0%, rgba(245, 245, 247, 0.92) 52%),
+    url("./images/githubbg.jpg") center / cover fixed,
+    var(--bg);
+}
+
 body::before {
   content: "";
   position: fixed;
