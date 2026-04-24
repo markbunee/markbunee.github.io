@@ -291,4 +291,251 @@
       applyDeckState();
     });
   }
+
+  const blogShell = document.querySelector("[data-blog-index][data-blog-root]");
+  if (blogShell) {
+    const indexUrl = blogShell.dataset.blogIndex || "";
+    const root = blogShell.dataset.blogRoot || "";
+    const listEl = blogShell.querySelector("[data-blog-list]");
+    const titleEl = blogShell.querySelector("[data-blog-title]");
+    const metaEl = blogShell.querySelector("[data-blog-meta]");
+    const contentEl = blogShell.querySelector("[data-blog-content]");
+
+    const escapeHtml = (value) =>
+      String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    const formatInline = (value) => {
+      let text = escapeHtml(value);
+      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
+      text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+      text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+      return text;
+    };
+
+    const markdownToHtml = (md) => {
+      const lines = String(md || "").replace(/\r\n/g, "\n").split("\n");
+      let html = "";
+      let inCode = false;
+      let codeLang = "";
+      let codeBuf = [];
+      let listMode = "";
+
+      const closeList = () => {
+        if (!listMode) return;
+        html += listMode === "ol" ? "</ol>" : "</ul>";
+        listMode = "";
+      };
+
+      lines.forEach((raw) => {
+        const line = raw || "";
+
+        const fence = line.match(/^```\s*([^\s`]+)?\s*$/);
+        if (fence) {
+          if (!inCode) {
+            closeList();
+            inCode = true;
+            codeLang = fence[1] || "";
+            codeBuf = [];
+          } else {
+            const code = escapeHtml(codeBuf.join("\n"));
+            const langClass = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
+            html += `<pre><code${langClass}>${code}</code></pre>`;
+            inCode = false;
+            codeLang = "";
+            codeBuf = [];
+          }
+          return;
+        }
+
+        if (inCode) {
+          codeBuf.push(line);
+          return;
+        }
+
+        const heading = line.match(/^(#{1,3})\s+(.+)$/);
+        if (heading) {
+          closeList();
+          const level = heading[1].length;
+          html += `<h${level}>${formatInline(heading[2])}</h${level}>`;
+          return;
+        }
+
+        const quote = line.match(/^>\s?(.+)$/);
+        if (quote) {
+          closeList();
+          html += `<blockquote><p>${formatInline(quote[1])}</p></blockquote>`;
+          return;
+        }
+
+        const ul = line.match(/^-\s+(.+)$/);
+        if (ul) {
+          if (listMode !== "ul") {
+            closeList();
+            listMode = "ul";
+            html += "<ul>";
+          }
+          html += `<li>${formatInline(ul[1])}</li>`;
+          return;
+        }
+
+        const ol = line.match(/^\d+\.\s+(.+)$/);
+        if (ol) {
+          if (listMode !== "ol") {
+            closeList();
+            listMode = "ol";
+            html += "<ol>";
+          }
+          html += `<li>${formatInline(ol[1])}</li>`;
+          return;
+        }
+
+        if (line.trim().length === 0) {
+          closeList();
+          return;
+        }
+
+        closeList();
+        html += `<p>${formatInline(line)}</p>`;
+      });
+
+      closeList();
+      if (inCode) {
+        const code = escapeHtml(codeBuf.join("\n"));
+        const langClass = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
+        html += `<pre><code${langClass}>${code}</code></pre>`;
+      }
+
+      return html;
+    };
+
+    const normalizePath = (value) => String(value || "").replace(/\\/g, "/").replace(/^\/+/, "");
+    const joinPath = (base, file) => `${String(base || "").replace(/\/+$/, "")}/${normalizePath(file)}`;
+
+    const getHashFile = () => {
+      const hash = (window.location.hash || "").replace(/^#/, "");
+      const match = hash.match(/(?:^|&)blog=([^&]+)/);
+      return match ? decodeURIComponent(match[1]) : "";
+    };
+
+    const setHashFile = (file) => {
+      const next = `#blog=${encodeURIComponent(file)}`;
+      if (window.location.hash !== next) window.history.replaceState(null, "", next);
+    };
+
+    const renderList = (posts, activeFile) => {
+      if (!listEl) return;
+      listEl.innerHTML = "";
+
+      posts.forEach((post) => {
+        const file = normalizePath(post.file || "");
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.dataset.blogFile = file;
+        btn.setAttribute("aria-current", String(file === activeFile));
+
+        const t = document.createElement("div");
+        t.className = "blog-post-title";
+        t.textContent = post.title || file || "Untitled";
+
+        const m = document.createElement("div");
+        m.className = "blog-post-meta";
+        m.textContent = [post.date, post.summary].filter(Boolean).join(" · ");
+
+        btn.appendChild(t);
+        btn.appendChild(m);
+        li.appendChild(btn);
+        listEl.appendChild(li);
+      });
+    };
+
+    const setActiveButton = (activeFile) => {
+      if (!listEl) return;
+      listEl.querySelectorAll("button[data-blog-file]").forEach((btn) => {
+        btn.setAttribute("aria-current", String(btn.dataset.blogFile === activeFile));
+      });
+    };
+
+    const loadPost = async (post) => {
+      const file = normalizePath(post.file || "");
+      if (!file || !contentEl || !titleEl || !metaEl) return;
+
+      setActiveButton(file);
+      titleEl.textContent = post.title || file;
+      metaEl.textContent = [post.date, post.tags && post.tags.length ? post.tags.join(" / ") : ""].filter(Boolean).join(" · ");
+      contentEl.textContent = "加载中…";
+
+      try {
+        const res = await fetch(joinPath(root, file), { cache: "no-cache" });
+        if (!res.ok) throw new Error(String(res.status));
+        const md = await res.text();
+        contentEl.innerHTML = markdownToHtml(md);
+        setHashFile(file);
+      } catch {
+        contentEl.textContent = "加载失败：请检查 blog_file/index.json 与对应 Markdown 文件是否存在，并确保在 HTTP 服务下访问页面。";
+      }
+    };
+
+    const loadIndex = async () => {
+      if (!indexUrl || !listEl || !contentEl || !titleEl || !metaEl) return;
+
+      try {
+        const res = await fetch(indexUrl, { cache: "no-cache" });
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        const posts = Array.isArray(data) ? data : Array.isArray(data.posts) ? data.posts : [];
+        const normalized = posts
+          .map((p) => ({
+            title: p.title || "",
+            file: normalizePath(p.file || ""),
+            date: p.date || "",
+            tags: Array.isArray(p.tags) ? p.tags : [],
+            summary: p.summary || "",
+          }))
+          .filter((p) => p.file.length > 0);
+
+        const hashFile = normalizePath(getHashFile());
+        const initial = normalized.find((p) => p.file === hashFile) || normalized[0];
+
+        renderList(normalized, initial ? initial.file : "");
+
+        if (!initial) {
+          titleEl.textContent = "暂无文章";
+          metaEl.textContent = "";
+          contentEl.textContent = "在 blog_file/index.json 里添加文章索引即可显示。";
+          return;
+        }
+
+        await loadPost(initial);
+
+        listEl.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target.closest("button[data-blog-file]") : null;
+          if (!target) return;
+          const file = normalizePath(target.dataset.blogFile || "");
+          const selected = normalized.find((p) => p.file === file);
+          if (selected) loadPost(selected);
+        });
+
+        window.addEventListener("hashchange", () => {
+          const file = normalizePath(getHashFile());
+          if (!file) return;
+          const selected = normalized.find((p) => p.file === file);
+          if (selected) loadPost(selected);
+        });
+      } catch {
+        if (listEl) listEl.innerHTML = "";
+        titleEl.textContent = "Blog 未配置";
+        metaEl.textContent = "";
+        contentEl.textContent = "未能读取 ./blog_file/index.json：请创建 blog_file 目录与 index.json，并确保通过 HTTP 服务访问（直接双击打开可能会被浏览器拦截 fetch）。";
+      }
+    };
+
+    loadIndex();
+  }
 })();

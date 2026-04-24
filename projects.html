@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>项目经历 | 马炫轩</title>
+    <meta name="description" content="马炫轩项目经历：多智能体平台、施工安全智能监管、血氧仪原型、医学术语规范化" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./index.html">Owen Ma</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="./index.html">首页</a>
+        <a href="./internship.html">实习经历</a>
+        <a href="./projects.html">项目经历</a>
+        <a href="./research.html">折腾研究</a>
+        <a href="./status.html">最近状态</a>
+        <a href="./about.html">关于我</a>
+        <a href="./contact.html">联系</a>
+      </nav>
+    </header>
+
+    <main>
+
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+
+          <h2>项目 1：Skime 多智能体基座-员工交接</h2>
+          <p class="sub">2025.11 - 2026.01</p>
+        </div>
+
+        <details class="detail-card reveal-card" data-reveal>
+          <summary>
+            <div class="detail-head">
+              <h3>智能体执行平台 + RAG 能力 + Skills 热更新 + MCP 工具挂载</h3>
+              <p>从执行编排到检索增强与工具生态的端到端建设</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>平台搭建：基于 FastAPI + 内置 Agents SDK 搭建智能体执行平台，完善任务执行与工具调用流程。</li>
+              <li>文档切分：引入 LangChain 的 RecursiveCharacterTextSplitter，实现中英文友好的文档智能切分，并设计降级策略保障 RAG 服务可用性。</li>
+              <li>RAG 端到端：Embedding + ChromaDB 完成文档切分、向量化、持久化与相似度检索，构建可复用的检索增强链路。</li>
+              <li>Skills 体系：以 SKILL.md + YAML 为载体定义 Agent Skills，通过 SkillRegistryWatchdog 监控实现技能热更新；在智能体侧暴露 load_skill 工具按需加载技能指令，降低上下文压力。</li>
+              <li>MCP 管理：平台侧通过 MCPService 管理多种传输方式的 MCP Server，并按 Agent 挂载工具；接入 Code Index MCP，提供代码检索、符号索引与文件系统访问能力。</li>
+            </ul>
+            <p class="project-result">成果：完成公司 11 月智能体大赛员工交接业务项目内部立项交付；后续独立尝试教育、医药数据项目落地（https://www.skime.space/）。</p>
+            <div class="stack-row">
+              <span>FastAPI</span>
+              <span>Agents SDK</span>
+              <span>LangChain</span>
+              <span>ChromaDB</span>
+              <span>RAG</span>
+              <span>MCP</span>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>项目 2：南网水务施工安全智能监管系统</h2>
+          <p class="sub">2025.05 - 2026.03</p>
+        </div>
+
+        <!-- <details class="detail-card reveal-card" data-reveal open> -->
+        <details class="detail-card reveal-card" data-reveal>
+          <summary>
+            <div class="detail-head">
+              <h3>红线越界检测 + 边界稳定跟踪 + 视觉与地理信息融合</h3>
+              <p>面向无人机航拍场景的越界识别与告警</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>问题定义：针对红线边界不规则、镜头移动导致边界难以稳定的问题，从纯视觉到地理信息融合设计多套落地方案。</li>
+              <li>方案 1（固定镜头）：掩膜 + 目标检测实现越界检测，并加入 30 秒停留判定降低误报。</li>
+              <li>方案 2（红线跟踪）：ORB/SIFT 特征匹配 + SAM 分割 + 光流实现红线在运动镜头下的稳定跟踪与越界判定。</li>
+              <li>方案 3（地理信息融合）：基于 GPS / 正射影像的经纬度红线映射算法，实现分割式越界检测与空间误差控制。</li>
+              <li>工程落地：算法模块接入南网智脑系统，形成可调用的巡检能力组件。</li>
+            </ul>
+            <p class="project-result">成果：可减少约 80% 的巡检工作量；实现施工越界判断，误差小于 10 米；提交 1 篇基于 DETR 的无人机密集人群识别论文，为项目提供理论支撑。</p>
+            <div class="stack-row">
+              <span>UAV Vision</span>
+              <span>Detection / Segmentation</span>
+              <span>ORB / SIFT</span>
+              <span>SAM</span>
+              <span>Optical Flow</span>
+              <span>DETR</span>
+              <span>GIS</span>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>项目 3：小型血氧仪检测设备</h2>
+          <p class="sub">2024.04 - 2024.05</p>
+        </div>
+
+        <details class="detail-card reveal-card" data-reveal>
+          <summary>
+            <div class="detail-head">
+              <h3>PPG 便携式血氧仪原型 + 传感器驱动 + DSP 信号处理</h3>
+              <p>非侵入式监测 SpO₂ 与心率的端到端实现</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>项目目标：开发基于光电容积描记法（PPG）的便携式血氧仪原型，用于非侵入式监测血氧饱和度与心率。</li>
+              <li>硬件实现：独立负责电路连接与系统调试；采用 STM32 MCU 作为控制核心，配合 MAX30102 传感器与 0.96 寸 OLED 屏进行数据采集与显示。</li>
+              <li>算法实现：采用 DSP 方法对原始光电信号进行降噪与滤波，通过傅里叶变换提取有效频域特征，计算 SpO₂ 与 HR 指标。</li>
+              <li>系统集成：完成传感器驱动、数据链路与显示链路联调，形成可演示的原型闭环。</li>
+            </ul>
+            <div class="stack-row">
+              <span>STM32</span>
+              <span>MAX30102</span>
+              <span>PPG</span>
+              <span>DSP</span>
+              <span>FFT</span>
+              <span>OLED</span>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>项目 4：基于中文医学大模型的医学术语规范化</h2>
+          <p class="sub">2025.03 - 2025.04</p>
+        </div>
+
+        <details class="detail-card reveal-card" data-reveal>
+          <summary>
+            <div class="detail-head">
+              <h3>粗筛 + 精判双阶段匹配 + 轻量化协同映射</h3>
+              <p>面向临床术语不一致的标准化落地方案</p>
+            </div>
+            <span class="detail-switch" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            <ul class="bullet-list">
+              <li>问题背景：临床医生书写术语存在大量不一致（如“心梗”与“心肌梗死”），阻碍医疗数据标准化与后续分析。</li>
+              <li>方案设计：提出基于 BERT 的中文大模型协同映射方法，结合相似度计算与文本对匹配的优势，先粗筛后精判。</li>
+              <li>工程特点：提供轻量化、低运算成本的双模型匹配机制，兼顾召回与精度，便于在业务系统中部署。</li>
+              <li>竞赛结果：在广东生物医学工程设计竞赛（大数据类命题赛道）获得二等奖。</li>
+            </ul>
+            <p class="project-result">指标：Accuracy 0.8529，Recall 0.7810，F1 0.7709，平均 BLEU 0.4151，平均 ROUGE-1 F1 0.8865。</p>
+            <div class="stack-row">
+              <span>BERT</span>
+              <span>Chinese NLP</span>
+              <span>Semantic Similarity</span>
+              <span>Text Pair Matching</span>
+              <span>Term Normalization</span>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>© 2026 Owen Ma · Projects</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>

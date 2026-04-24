@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>折腾研究 | 马炫轩</title>
+    <meta name="description" content="马炫轩研究：脑电到图像/文本生成、病灶解耦 MoE、四元数多模态融合、鼻咽癌预后预测；以及 Blog 文章。" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./index.html">Owen Ma</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="./index.html">首页</a>
+        <a href="./internship.html">实习经历</a>
+        <a href="./projects.html">项目经历</a>
+        <a href="./research.html">折腾研究</a>
+        <a href="./status.html">最近状态</a>
+        <a href="./about.html">关于我</a>
+        <a href="./contact.html">联系</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>折腾研究</h2>
+          <p class="sub">论文 / 方法 / 工程化落地</p>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-item reveal-card" data-reveal>
+            <h3>在投 / 在研</h3>
+            <p>脑电多模态生成、医学影像解耦与融合、预后预测、MoE多任务学习</p>
+          </div>
+          <div class="summary-item reveal-card" data-reveal>
+            <h3>方向</h3>
+            <p>AI产品落地 / 医工结合 / 用户需求挖掘</p>
+          </div>
+          <div class="summary-item reveal-card" data-reveal>
+            <h3>blog</h3>
+            <p>乱想 / 思考 / 研究</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>论文与研究</h2>
+          <p class="sub">卡片式概览 · 点击展开细节</p>
+        </div>
+
+        <div class="detail-list">
+          <details class="detail-card reveal-card" data-reveal>
+            <summary>
+              <div class="detail-head">
+                <h3>DVSU: Decoupling Visual and Semantic Neural Representations for Unified Thought-to-Image-Text Generation</h3>
+                <p>共一 · 在投 · 2025.10 - 2026.03</p>
+              </div>
+              <span class="detail-switch" aria-hidden="true"></span>
+            </summary>
+            <div class="detail-body">
+              <ul class="bullet-list">
+                <li>MoE Encoder：视觉 / 语义 / 全局专家，缓解 EEG 特征混杂，提取独立且互补的神经表征流。</li>
+                <li>三重对比学习：强化视觉专家对形状纹理的捕获、语义专家对高层概念的理解。</li>
+                <li>Neural-Semantic Bridge：基于交叉注意力，两阶段训练将连续脑电特征对齐至大模型语义空间。</li>
+                <li>全链路重建：从感知（EEG）到认知（LLM）再到表达（图像 / 文本）的多模态生成。</li>
+              </ul>
+              <div class="stack-row">
+                <span>EEG</span>
+                <span>MoE</span>
+                <span>Contrastive Learning</span>
+                <span>Cross Attention</span>
+                <span>LLM</span>
+                <span>Generation</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="detail-card reveal-card" data-reveal>
+            <summary>
+              <div class="detail-head">
+                <h3>DGS-MI2: Dual-Gate Shared-Private MoE for Disentangling Overlapping Pathological Cues in Co-Localized Lesions</h3>
+                <p>SCI 二区 · 共一 · 在投 · 2025.03 - 2025.10</p>
+              </div>
+              <span class="detail-switch" aria-hidden="true"></span>
+            </summary>
+            <div class="detail-body">
+              <ul class="bullet-list">
+                <li>双重门控：动态控制共享 / 私有特征流，缓解共定位病灶区域的特征纠缠。</li>
+                <li>Shared-Private MoE：通过可学习路由复用共享知识，同时学习标签特异性表示。</li>
+                <li>双重互信息对比：最大化私有特征判别力，压缩类内差异，提升重叠病灶识别稳定性。</li>
+              </ul>
+              <div class="stack-row">
+                <span>Medical Imaging</span>
+                <span>MoE</span>
+                <span>Disentanglement</span>
+                <span>Supervised Contrastive</span>
+                <span>Mutual Information</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="detail-card reveal-card" data-reveal>
+            <summary>
+              <div class="detail-head">
+                <h3>QuatFuse: Quaternion-Based Orthogonal Representation Learning for Multi-Modal Image Fusion</h3>
+                <p>SCI 二区 · 四作 · 2024.10 - 2025.10</p>
+              </div>
+              <span class="detail-switch" aria-hidden="true"></span>
+            </summary>
+            <div class="detail-body">
+              <ul class="bullet-list">
+                <li>四元数代数：显式建模跨模态复杂交互，避免仅做拼接/加权导致的关联丢失。</li>
+                <li>正交自适应模块：基于 Gram-Schmidt 正交化生成可学习正交投影权重，解耦冗余特征。</li>
+                <li>频域聚合 + 哈密顿积融合：在频域实现跨通道自适应加权，并在四元数空间完成深度融合与相位耦合。</li>
+              </ul>
+              <div class="stack-row">
+                <span>Quaternion</span>
+                <span>Orthogonalization</span>
+                <span>Frequency Domain</span>
+                <span>Hamilton Product</span>
+                <span>Image Fusion</span>
+              </div>
+            </div>
+          </details>
+
+          <details class="detail-card reveal-card" data-reveal>
+            <summary>
+              <div class="detail-head">
+                <h3>SAM-MRI: Segmentation-Assisted Multimodal MRI Deep Learning for Prognostic Prediction in Locally Advanced Nasopharyngeal Carcinoma</h3>
+                <p>会议 · 四作 · 2024.09 - 2025.08</p>
+              </div>
+              <span class="detail-switch" aria-hidden="true"></span>
+            </summary>
+            <div class="detail-body">
+              <ul class="bullet-list">
+                <li>病灶定位分割：改进 3D U-Net，并集成注意力门控跳跃连接，生成体素级肿瘤概率图。</li>
+                <li>目标引导级联生存：概率图与多模态 MRI 早期融合，级联多尺度特征提取，同时捕捉细粒度形态与全局瘤周上下文。</li>
+              </ul>
+              <div class="stack-row">
+                <span>3D U-Net</span>
+                <span>Attention Gate</span>
+                <span>Multimodal MRI</span>
+                <span>Survival Prediction</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section>
+        <div class="title-row reveal-card" data-reveal>
+          <h2>Blog</h2>
+          <p class="sub">从 blog_file 加载 Markdown</p>
+        </div>
+
+        <div class="blog-shell" data-blog-index="./blog_file/index.json" data-blog-root="./blog_file">
+          <div class="card reveal-card" data-reveal>
+            <h3>文章列表</h3>
+            <p class="muted">支持点击加载，也支持通过链接分享具体文章。</p>
+            <ul class="blog-posts" data-blog-list></ul>
+          </div>
+
+          <div class="card reveal-card" data-reveal>
+            <div class="blog-view-head">
+              <h3 data-blog-title>选择一篇文章</h3>
+              <p class="muted" data-blog-meta></p>
+            </div>
+            <div class="md-content" data-blog-content></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2026 Owen Ma · Research</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
