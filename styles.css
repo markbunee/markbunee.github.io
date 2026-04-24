@@ -1486,3 +1486,170 @@ footer {
     transform: none;
   }
 }
+
+
+/* 时间轴容器 */
+.timeline-wrapper {
+  position: relative;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px 0;
+}
+
+/* 垂直折线 */
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--brand-color, #007aff), transparent);
+  opacity: 0.3;
+}
+
+/* 每一行项目 */
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 50px;
+}
+
+/* 时间点小圆圈 */
+.timeline-dot {
+  position: absolute;
+  left: 15px;
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  background: var(--brand-color, #007aff);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: scale(1.5);
+}
+
+/* 卡片样式 */
+.timeline-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-card[open] {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+
+/* 容器配色方案：温暖、人文、专业 */
+:root {
+  --bg-paper: #f9f7f2;      /* 米纸色背景 */
+  --text-main: #2d3436;     /* 炭黑色文字 */
+  --accent-forest: #2d4035; /* 深林绿（替代AI蓝） */
+  --accent-clay: #b35a38;   /* 陶土红（点缀色） */
+  --line-color: #d1ccc0;    /* 灰褐色线条 */
+}
+
+.rising-timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 60px auto;
+  padding-left: 40px;
+}
+
+/* 绘制折线（向上攀爬的斜线） */
+.rising-item {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.rising-item::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 15px;
+  width: 2px;
+  height: 100%;
+  background: var(--line-color);
+  z-index: 1;
+}
+
+/* 最后一项不显示向下的延长线 */
+.rising-item:last-child::before {
+  display: none;
+}
+
+/* 绘制连接点和向上的小斜勾 */
+.rising-item::after {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  background: var(--bg-paper);
+  border: 2px solid var(--accent-clay);
+  border-radius: 2px; /* 方形节点比圆形更有建筑感 */
+  z-index: 2;
+  transform: rotate(45deg); /* 菱形节点 */
+  transition: all 0.3s ease;
+}
+
+/* 核心卡片样式 */
+.rising-card {
+  background: #fff;
+  border-bottom: 3px solid var(--accent-forest); /* 底部厚边框增加稳重感 */
+  border-radius: 4px;
+  box-shadow: 6px 6px 0px rgba(45, 64, 53, 0.05); /* 硬阴影，摒弃AI柔光 */
+  transition: transform 0.2s ease;
+}
+
+.rising-card[open] {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0px rgba(45, 64, 53, 0.1);
+}
+
+.rising-card summary {
+  padding: 20px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.year-label {
+  display: block;
+  font-family: serif; /* 使用衬线体增加人文气息 */
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--accent-clay);
+  margin-bottom: 5px;
+}
+
+.rising-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--accent-forest);
+  font-weight: 600;
+}
+
+.rising-content {
+  padding: 0 20px 20px;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.rising-content ul {
+  padding-left: 18px;
+  border-left: 1px solid var(--line-color);
+}
+
+/* 鼠标悬停时的灵动感 */
+.rising-item:hover::after {
+  background: var(--accent-clay);
+  transform: rotate(135deg) scale(1.2);
+}

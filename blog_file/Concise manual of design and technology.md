@@ -1,7 +1,7 @@
 # Concise manual of design and technology
 
 广工生医工社区的设计与技术简明手册
-
+（github.com/markbunee/Concise-manual-of-design-and-technology有对应pdf版本）
 2025/9/9 markbunee
 
 ## 前言
