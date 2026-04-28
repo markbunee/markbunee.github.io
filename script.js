@@ -539,3 +539,21 @@
     loadIndex();
   }
 })();
+
+
+// 主页设计
+// 在 script.js 中添加
+// 在 script.js 中添加或增强鼠标跟随逻辑
+document.addEventListener('mousemove', (e) => {
+    // 1. 更新 CSS 变量 (您样式中已有的)
+    document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+    document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+
+    // 2. 增加轻微的视差偏移给英雄图片
+    const visual = document.querySelector('.hero-visual');
+    if (visual) {
+        const moveX = (e.clientX - window.innerWidth / 2) / 50;
+        const moveY = (e.clientY - window.innerHeight / 2) / 50;
+        visual.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+    }
+});

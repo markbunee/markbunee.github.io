@@ -15,38 +15,60 @@
       <nav id="site-nav" class="site-nav">
         <a href="./index.html">首页</a>
         <a href="./internship.html">实习经历</a>
-        <a href="./projects.html">项目经历</a>
+        <a href="./projects_Tech.html">项目经历</a>
+        <a href="./projects_Business.html">产品经历</a>
         <a href="./research.html">折腾研究</a>
         <a href="./about.html">关于我</a>
         <a href="./contact.html">联系</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="reveal-card" data-reveal>
-          <h1>
-            马炫轩<br />
-            <span>Owen Ma</span>
-          </h1>
-          <p class="lead"> 不断探索AI技术边界，不断创造令人兴奋的产品 </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="./internship.html">查看实习经历</a>
-            <a class="btn secondary" href="./projects.html">查看项目经历</a>
-          </div>
-          <div class="quick-points">
-            <span>广东工业大学 · 生物医学工程</span>
-            <span>个人开发者</span>
-            <span>将要雅思6.5</span>
-            <span>日常blog</span>
-            <span>https://github.com/markbunee</span>
-          </div>
+    <main class="canvas-home">
+      <div class="bg-spotlight" aria-hidden="true"></div>
+
+      <div class="floating-hero" data-reveal>
+        <h1 class="giant-name">
+          <span class="cn">马炫轩</span>
+          <span class="en">OWEN <span class="interactive-stroke">MA</span></span>
+        </h1>
+        <div class="minimal-lead">
+          <span class="line"></span>
+          <p>探索 AI 技术边界，创造令人兴奋的数字产品</p>
         </div>
-        <figure class="hero-media reveal-card tilt-card" data-reveal>
-          <img src="images\OwenMa-head.png" alt="马炫轩证件照" />
-          <figcaption class="badge">Target: 数据分析 / AI应用 / 医工结合</figcaption>
-        </figure>
-      </section>
+      </div>
+
+      <nav class="scatter-nav">
+        <div class="nav-node" style="--index: 1;" data-reveal>
+          <a href="./about.html">
+            <span class="num">01</span>
+            <span class="label">关于我 <small>ABOUT</small></span>
+          </a>
+        </div>
+        <div class="nav-node" style="--index: 2;" data-reveal>
+          <a href="https://github.com/markbunee">
+            <span class="num">02</span>
+            <span class="label">开发 <small>DEV</small></span>
+          </a>
+        </div>
+        <div class="nav-node" style="--index: 3;" data-reveal>
+          <a href="./research.html">
+            <span class="num">03</span>
+            <span class="label">博客 <small>THOUGHTS</small></span>
+          </a>
+        </div>
+        <div class="nav-node" style="--index: 4;" data-reveal>
+          <a href="./projects_Business.html">
+            <span class="num">04</span>
+            <span class="label">设计 <small>DESIGN</small></span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="minimal-footer" data-reveal>
+        <span class="status-tag"><i class="dot"></i> 寻找 AI 应用机遇</span>
+        <span class="loc-tag">GDUT · BME</span>
+      </div>
+    </main>
 
     <footer>© 2026 Owen Ma · Personal Website</footer>
     <script src="./script.js"></script>

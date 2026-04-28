@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>项目经历 | 马炫轩</title>
+    <meta name="description" content="马炫轩项目经历：多智能体平台、施工安全智能监管、血氧仪原型、医学术语规范化" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./index.html">Owen Ma</a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">菜单</button>
+      <nav id="site-nav" class="site-nav">
+        <a href="./index.html">首页</a>
+        <a href="./internship.html">实习经历</a>
+        <a href="./projects_Tech.html">项目经历</a>
+        <a href="./projects_Business.html">产品经历</a>
+        <a href="./research.html">折腾研究</a>
+        <a href="./about.html">关于我</a>
+        <a href="./contact.html">联系</a>
+      </nav>
+    </header>
+
+    <main class="project-container">
+      <header style="margin-bottom: 100px;" data-reveal>
+        <div class="accent-line"></div>
+        <h1 style="font-size: 3.5rem; letter-spacing: -1px;">Selected <span style="color: var(--accent);">Projects</span></h1>
+        <p style="color: var(--muted); font-style: italic;">融合技术深度与视觉艺术的项目沉淀</p>
+      </header>
+
+      <section class="project-section reveal-card" data-reveal>
+        <div class="project-index">01</div>
+        <div class="project-grid">
+          <div class="project-info">
+            <p class="sub" style="color: var(--accent);">2025.11 - 2026.01</p>
+            <h2>Skime 多智能体基座</h2>
+            <p style="margin-top: 20px; color: var(--muted); line-height: 1.8;">
+              从执行编排到检索增强与工具生态的端到端建设。基于 FastAPI 搭建的高并发智能体执行平台。
+            </p>
+            <div class="stack-row" style="margin-top: 30px;">
+              <span>FastAPI</span><span>LangChain</span><span>ChromaDB</span><span>MCP</span>
+            </div>
+          </div>
+          
+          <div class="project-detail">
+            <div class="data-hero">
+              <div class="data-item">
+                <span class="value">RAG</span>
+                <span class="label">端到端能力</span>
+              </div>
+              <div class="data-item">
+                <span class="value">Live</span>
+                <span class="label">Skills 热更新</span>
+              </div>
+            </div>
+            <ul class="bullet-list" style="border-left: 1px solid var(--accent-soft); padding-left: 20px;">
+              <li>引入 LangChain 实现中英文友好文档切分。</li>
+              <li>通过 SkillRegistryWatchdog 实现监控热更新。</li>
+              <li>接入 Code Index MCP，强化代码检索与文件系统访问。</li>
+            </ul>
+            <p class="project-result" style="background: var(--accent-soft); padding: 15px; border-radius: 4px; margin-top: 20px;">
+              成果：公司智能体大赛优胜项目，已落地医药/教育数据项目。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section reveal-card" data-reveal>
+        <div class="project-index">02</div>
+        <div class="project-grid">
+          <div class="project-info">
+            <p class="sub" style="color: var(--accent);">2025.05 - 2026.03</p>
+            <h2>南网水务智能监管</h2>
+            <p style="margin-top: 20px; color: var(--muted); line-height: 1.8;">
+              面向无人机航拍场景的红线越界识别系统。融合视觉算法与地理信息系统（GIS）。
+            </p>
+            <div class="stack-row" style="margin-top: 30px;">
+              <span>UAV Vision</span><span>SAM</span><span>Optical Flow</span><span>GIS</span>
+            </div>
+          </div>
+
+          <div class="project-detail">
+            <div class="data-hero">
+              <div class="data-item">
+                <span class="value">80<small style="font-size: 2rem;">%</small></span>
+                <span class="label">工作量减少</span>
+              </div>
+              <div class="data-item">
+                <span class="value">&lt;10<small style="font-size: 2rem;">m</small></span>
+                <span class="label">空间误差控制</span>
+              </div>
+            </div>
+            <ul class="bullet-list" style="border-left: 1px solid var(--accent-soft); padding-left: 20px;">
+              <li>设计 ORB/SIFT 特征匹配 + SAM 分割的运动红线跟踪。</li>
+              <li>基于 GPS 正射影像的经纬度映射算法。</li>
+              <li>算法模块已成功接入南网智脑巡检能力组件。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="project-section reveal-card" data-reveal>
+        <div class="project-index">03</div>
+        <div class="project-grid">
+          <div class="project-info">
+            <p class="sub" style="color: var(--accent);">2025.03 - 2025.04</p>
+            <h2>医学术语规范化大模型</h2>
+            <p style="margin-top: 20px; color: var(--muted); line-height: 1.8;">
+              基于 BERT 的双阶段匹配方案。攻克临床医疗数据中“同义异名”的标准化难题。
+            </p>
+            <div class="stack-row" style="margin-top: 30px;">
+              <span>BERT</span><span>NLP</span><span>Semantic Matching</span>
+            </div>
+          </div>
+
+          <div class="project-detail">
+            <div class="data-hero" style="flex-wrap: wrap;">
+              <div class="data-item">
+                <span class="value">0.852</span>
+                <span class="label">Accuracy</span>
+              </div>
+              <div class="data-item">
+                <span class="value">0.771</span>
+                <span class="label">F1 Score</span>
+              </div>
+              <div class="data-item">
+                <span class="value">0.886</span>
+                <span class="label">ROUGE-1</span>
+              </div>
+            </div>
+            <p class="project-result" style="border: 1px dashed var(--accent); padding: 15px; font-family: monospace;">
+              荣获：广东生物医学工程设计竞赛 二等奖
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2026 Owen Ma · Projects</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
