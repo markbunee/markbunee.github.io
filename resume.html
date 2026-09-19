@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>简历 | 马炫轩 Owen Ma</title>
+    <meta
+      name="description"
+      content="马炫轩 Owen Ma 的简历：AI 产品 / 算法开发 / 医药行业业务复合背景，广东工业大学生物医学工程在读。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23faf9f6'/%3E%3Cg fill='none' stroke='%231a1a1a' stroke-width='3.4' stroke-linecap='square'%3E%3Cpath d='M9 8 V24'/%3E%3Cpath d='M23 8 V24'/%3E%3Cpath d='M9 8 L23 24'/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .resume-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+        padding-bottom: 22px;
+        border-bottom: 2px solid var(--ink, #161511);
+        margin-bottom: 34px;
+      }
+      .resume-name {
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(42px, 7vw, 76px);
+        line-height: 0.95;
+        letter-spacing: 1px;
+        color: var(--ink, #161511);
+      }
+      .resume-name small {
+        display: block;
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        color: var(--faint, #8c887f);
+        margin-top: 10px;
+      }
+      .resume-role {
+        font-size: 14px;
+        color: var(--soft, #3d3a34);
+        max-width: 34ch;
+        text-align: right;
+      }
+      .resume-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin: 0 0 40px;
+        font-size: 13px;
+        color: var(--soft, #3d3a34);
+      }
+      .resume-contact a {
+        color: inherit;
+        border-bottom: 1px solid var(--line, #dedbd3);
+      }
+      .resume-contact b {
+        color: var(--faint, #8c887f);
+        font-weight: 500;
+        margin-right: 6px;
+      }
+      .resume-cols {
+        display: grid;
+        grid-template-columns: 0.82fr 1.18fr;
+        gap: 48px;
+        align-items: start;
+      }
+      .resume-side .rsec {
+        margin-bottom: 30px;
+      }
+      .rsec-t {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 4px;
+        color: var(--ink, #161511);
+        padding-bottom: 8px;
+        margin-bottom: 14px;
+        border-bottom: 1px solid var(--ink, #161511);
+      }
+      .rskill-label {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--ink, #161511);
+        margin: 14px 0 8px;
+      }
+      .rskill-label:first-of-type {
+        margin-top: 0;
+      }
+      .rtag {
+        display: inline-block;
+        font-size: 12px;
+        color: var(--soft, #3d3a34);
+        border: 1px solid var(--line, #dedbd3);
+        border-radius: 999px;
+        padding: 3px 10px;
+        margin: 0 6px 6px 0;
+      }
+      .raward {
+        list-style: none;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: var(--soft, #3d3a34);
+      }
+      .raward li {
+        position: relative;
+        padding-left: 14px;
+        margin-bottom: 8px;
+      }
+      .raward li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--accent, #b8461f);
+      }
+      .rexp {
+        margin-bottom: 26px;
+      }
+      .rexp:last-child {
+        margin-bottom: 0;
+      }
+      .rexp-h {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .rexp-c {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ink, #161511);
+      }
+      .rexp-r {
+        font-size: 12.5px;
+        color: var(--soft, #3d3a34);
+      }
+      .rexp-t {
+        font-size: 11.5px;
+        color: var(--faint, #8c887f);
+        white-space: nowrap;
+        margin: 2px 0 10px;
+      }
+      .rbul {
+        list-style: none;
+        margin: 0;
+      }
+      .rbul li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 13px;
+        line-height: 1.62;
+        color: var(--soft, #3d3a34);
+        margin-bottom: 8px;
+        text-align: justify;
+      }
+      .rbul li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent, #b8461f);
+      }
+      .rbul b {
+        color: var(--ink, #161511);
+        font-weight: 600;
+      }
+      .rprofile {
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--soft, #3d3a34);
+        margin-bottom: 30px;
+        text-align: justify;
+      }
+      .rprofile b {
+        color: var(--ink, #161511);
+        font-weight: 600;
+      }
+      .resume-actions {
+        display: flex;
+        gap: 12px;
+        margin: 6px 0 44px;
+      }
+      @media (max-width: 760px) {
+        .resume-cols {
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+        .resume-role {
+          text-align: left;
+        }
+      }
+      @media print {
+        .site-header,
+        .site-footer,
+        .resume-actions,
+        .scroll-progress {
+          display: none !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        .wrap {
+          max-width: none !important;
+          padding: 0 !important;
+        }
+        .resume-cols {
+          gap: 30px;
+        }
+        a {
+          text-decoration: none !important;
+          color: inherit !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html"
+          ><span class="dot"></span>Neftoo<span class="tld">.xyz</span></a
+        >
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">菜单</button>
+        <nav id="site-nav" class="site-nav">
+          <a href="./index.html">首页</a>
+          <a href="./products.html">产品</a>
+          <a href="./work.html">经历</a>
+          <a href="./research.html">研究</a>
+          <a href="./blog.html">博客</a>
+          <a href="./about.html">关于</a>
+          <a href="./resume.html">简历</a>
+          <a href="./contact.html">联系</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal>Résumé · 2026</p>
+          <div class="resume-head" data-reveal>
+            <h1 class="resume-name">
+              马炫轩
+              <small>Owen Ma · AI 产品 / 算法开发</small>
+            </h1>
+            <p class="resume-role">
+              AI 产品 ｜ 算法开发 ｜<br />医药行业业务复合背景
+            </p>
+          </div>
+
+          <div class="resume-contact" data-reveal>
+            <span><b>电话</b>18302092414</span>
+            <span><b>邮箱</b><a href="mailto:3195824330@qq.com">3195824330@qq.com</a></span>
+            <span><b>产品矩阵</b><a href="https://neftoo.xyz" target="_blank" rel="noreferrer">neftoo.xyz</a></span>
+            <span><b>GitHub</b><a href="https://github.com/markbunee" target="_blank" rel="noreferrer">github.com/markbunee</a></span>
+            <span><b>在读</b>广东工业大学 · 大四</span>
+          </div>
+
+          <div class="resume-actions" data-reveal>
+            <button class="btn btn--solid" type="button" onclick="window.print()">
+              打印 / 导出 PDF
+            </button>
+            <a class="btn" href="./contact.html">联系我</a>
+          </div>
+
+          <div class="resume-cols">
+            <!-- ============ LEFT ============ -->
+            <aside class="resume-side">
+              <div class="rsec">
+                <div class="rsec-t">教育背景</div>
+                <div style="font-size: 15px; font-weight: 600; color: var(--ink)">
+                  广东工业大学
+                </div>
+                <div style="font-size: 13px; color: var(--soft); margin-top: 4px">
+                  生物医学工程 · 本科
+                </div>
+                <div style="font-size: 12px; color: var(--faint); margin-top: 4px">
+                  2023.09 — 2027.07
+                </div>
+                <div style="font-size: 12.5px; color: var(--soft); margin-top: 8px; line-height: 1.5">
+                  相关课程：信号与系统、数字图像处理、C 语言
+                </div>
+              </div>
+
+              <div class="rsec">
+                <div class="rsec-t">核心技能</div>
+                <div class="rskill-label">AI 产品能力</div>
+                <div>
+                  <span class="rtag">大模型 0→1 落地</span><span class="rtag">RAG 知识库</span
+                  ><span class="rtag">多智能体</span><span class="rtag">Prompt 工程</span
+                  ><span class="rtag">MCP / Skills</span><span class="rtag">效果评估</span
+                  ><span class="rtag">业务流程设计</span><span class="rtag">需求洞察</span
+                  ><span class="rtag">竞品分析</span><span class="rtag">AIGC 生成</span>
+                </div>
+                <div class="rskill-label">产品工具</div>
+                <div>
+                  <span class="rtag">Axure</span><span class="rtag">Figma</span
+                  ><span class="rtag">Visio</span><span class="rtag">Xmind</span
+                  ><span class="rtag">PRD</span><span class="rtag">SOP 沉淀</span>
+                </div>
+                <div class="rskill-label">AI 开发</div>
+                <div>
+                  <span class="rtag">Python</span><span class="rtag">LangChain / LangGraph</span
+                  ><span class="rtag">AgentSDK</span><span class="rtag">Dify / Coze</span
+                  ><span class="rtag">FastAPI</span><span class="rtag">Docker</span
+                  ><span class="rtag">Vibecoding</span>
+                </div>
+                <div class="rskill-label">数据与算法</div>
+                <div>
+                  <span class="rtag">SQL</span><span class="rtag">数据清洗</span
+                  ><span class="rtag">K-means / LSTM</span><span class="rtag">BCG / CR4</span
+                  ><span class="rtag">CV / 多模态</span><span class="rtag">PyTorch</span>
+                </div>
+              </div>
+
+              <div class="rsec">
+                <div class="rsec-t">荣誉成果</div>
+                <ul class="raward">
+                  <li>AI 论文 4 篇（SCI 一作 ×2 / 四作已中 / KBS 在投），专利软著各 1 篇，CET-6</li>
+                  <li>广东省生物医学工程设计竞赛二等奖</li>
+                  <li>中国国际大学生创新创业大赛省级金奖</li>
+                  <li>全国大学生数学建模竞赛省级二等奖</li>
+                </ul>
+              </div>
+            </aside>
+
+            <!-- ============ RIGHT ============ -->
+            <div class="resume-main">
+              <p class="rprofile">
+                <b>产品设计理念：</b>一套 Agent 核心搭建多产品矩阵，业务侧避免重复构建；聚焦高
+                ROI 与业务痛点，极简设计，强化上下文管理、成本优化，提升业务流转效率。
+              </p>
+
+              <div class="rsec" style="margin-bottom: 30px">
+                <div class="rsec-t">工作经历</div>
+
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">华润三九医药股份</span>
+                    <span class="rexp-r">KA 管培生 · 品牌事业部</span>
+                  </div>
+                  <div class="rexp-t">2026.06 — 至今</div>
+                  <ul class="rbul">
+                    <li>
+                      <b>AI 提效与统一业务平台：</b>识别多源数据口径混乱、手工汇总低效痛点，以「痛点 → 自动化 → SOP」闭环设计统一业务平台，KA 数据处理 <b>1 小时降至 5 分钟</b>；配套药店增幅地图跟踪门店产出、业务知识库支撑营销策略。
+                    </li>
+                    <li>
+                      <b>AIGC 工具集成落地：</b>产出首版 AI 营销成片，沉淀「抽卡选优 + 素材集成」SOP 实现 <b>半日闭环</b>；针对 AI 缺乏业务理解的问题，设计 AI-PPT 自动化方案（上下文工程 + 业务素材库）。
+                    </li>
+                    <li>
+                      <b>业务能力：</b>走访广州 50+ 终端门店，一线调研识别品牌心智固化、包装观感弱等核心痛点，输出业务打法和竞品分析；统筹奥园广场活动 3 天 300 小时人力排布，活动社群触达 2000+ 人；作为区域 KA 负责人，写省区方案和汇报 60+。
+                    </li>
+                    <li>
+                      <b>业务数据库：</b>搭建大参林 / 高济 / 海王三大 KA 本地销售数据库（查询·维护·统计），沉淀一线经验为可复用数据资产，即 CRDB <span class="mono">crdb.neftoo.xyz</span> 的产品雏形。
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">金域医学</span>
+                    <span class="rexp-r">算法实习生 · 人工智能与数据科学部</span>
+                  </div>
+                  <div class="rexp-t">2026.03 — 2026.04</div>
+                  <ul class="rbul">
+                    <li>
+                      <b>大模型微调与智能体调研：</b>整理问题库并构建问答对语料，以 <b>SFT / LoRA</b> 在 LLaMA-Factory 微调并完成参数配置监控与评估，接入医疗问答；主导诊疗报告问答智能体竞品调研（小荷、百川等），统一测评输出决策报告。
+                    </li>
+                    <li>
+                      <b>医疗算法产品化：</b>支持双链 DNA、念珠菌丝、ANCA 等目标检测 / 分割 / 分类，基于 OpenVINO 以 FastAPI 封装 SaaS 接口、Docker 部署，设计后处理解决重叠误检。
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">广州智算信息公司</span>
+                    <span class="rexp-r">AI 产品实习生 · 数字政府</span>
+                  </div>
+                  <div class="rexp-t">2025.10 — 2026.03</div>
+                  <ul class="rbul">
+                    <li>
+                      <b>需求对接与产品调研：</b>主导数字博州人才招聘调研，定位岗位区分混乱、求职描述模糊、简历填写门槛高 <b>3 大痛点</b>，设计「岗位—能力」双向语义匹配，基于 <b>Qwen-32B</b> 平衡效果与成本，以语音转写 + 二次纠正降门槛。
+                    </li>
+                    <li>
+                      <b>AI 技术竞品调研跟进 SOP：</b>梳理竞品差异，AI 定时产品和技术周报，开发文本分块、上下文记忆、跨库检索<b>接口服务化</b>，开发小智知识库支撑 <b>3+ 业务线</b>落地；舆情分析系统多源采集流水线（Demucs + Faster-Whisper + 说话人分离），通话内容自动结构化，效率 <b>提升 40%</b>。
+                    </li>
+                    <li>
+                      <b>小模型算法优化：</b>端到端负责数据清洗、模型选型与业务逻辑，完成边界压测，误报率 <b>10% 降至 0.2%</b> 达业务可用；搭建推训一体化平台形成模型优化闭环。
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">广州标点信息（米内网）</span>
+                    <span class="rexp-r">数据分析实习生 · 产品部</span>
+                  </div>
+                  <div class="rexp-t">2025.07 — 2025.08</div>
+                  <ul class="rbul">
+                    <li>
+                      <b>医药市场分析：</b>基于 BCG 矩阵、CR4 / CR8 拆解头部药企份额与产品结构，输出抗肿瘤药年度市场分析报告支撑战略。
+                    </li>
+                    <li>
+                      <b>数据清洗自动化：</b>以「业务理解 + ngram + 余弦相似度」开发清洗脚本，辅助周期办公与数据标签，沉淀治理 SOP。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="rsec">
+                <div class="rsec-t">项目经历</div>
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">员工交接智能体平台</span>
+                    <span class="rexp-r">内部大赛获奖 · 公司立项</span>
+                  </div>
+                  <div class="rexp-t">2025.11 — 2026.01</div>
+                  <ul class="rbul">
+                    <li>
+                      针对员工变动快、交接信息分散、知识传递低效的痛点，自主发起方案并与领导对齐产品、统筹实习生工时。独立完成 Agent 生态调研与关键节点梳理，输出技术 / 需求 / 流程图全套交付物。基于 <b>FastAPI + OpenAI-AgentSDK</b> 搭建<b>多租户</b>平台，集成 MCP、知识库、Skills 能力，解决日程、员工资料、协作的动态与静态数据交接问题。
+                    </li>
+                  </ul>
+                </div>
+                <div class="rexp">
+                  <div class="rexp-h">
+                    <span class="rexp-c">南网水务施工智脑系统</span>
+                    <span class="rexp-r">校企合作</span>
+                  </div>
+                  <div class="rexp-t">2025.05 — 2026.03</div>
+                  <ul class="rbul">
+                    <li>
+                      面向施工用地越界安全监测，独立完成方案到算法落地多轮迭代：根据费用、对方提供的支持、模型边界，从纯视觉到地理信息融合提供多套路线，最终采用正射影像方案并借 CV 工程（掩膜膨胀、交集过滤、坐标映射）实现大地图越界检测。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-mark">Neftoo</p>
+            <p class="muted" style="max-width: 34ch; margin: 0">
+              一个挂在 neftoo.xyz 之下的产品矩阵：智能体、个人工作 OS、工单与医药销售数据系统。
+            </p>
+          </div>
+          <div>
+            <h4>Matrix</h4>
+            <ul>
+              <li><a href="https://skime.neftoo.xyz">skime.neftoo.xyz</a></li>
+              <li><a href="https://mawork.neftoo.xyz">mawork.neftoo.xyz</a></li>
+              <li><a href="https://ticketsys.neftoo.xyz">ticketsys.neftoo.xyz</a></li>
+              <li><a href="https://crdb.neftoo.xyz">crdb.neftoo.xyz</a></li>
+              <li><a href="./blog.html">blog.neftoo.xyz</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Site</h4>
+            <ul>
+              <li><a href="./index.html">首页</a></li>
+              <li><a href="./products.html">产品</a></li>
+              <li><a href="./work.html">经历</a></li>
+              <li><a href="./research.html">研究</a></li>
+              <li><a href="./blog.html">博客</a></li>
+              <li><a href="./about.html">关于</a></li>
+              <li><a href="./resume.html">简历</a></li>
+              <li><a href="./contact.html">联系</a></li>
+              <li><a href="https://github.com/markbunee" target="_blank" rel="noreferrer">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-base">
+          <span>© <span data-year>2026</span> Neftoo · 马炫轩 Owen Ma</span>
+          <span>Guangzhou · GDUT BME</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

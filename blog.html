@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>联系 | Neftoo</title>
-    <meta name="description" content="联系马炫轩：邮箱、电话、简历下载与社交链接。" />
+    <title>博客 | Neftoo</title>
+    <meta name="description" content="Neftoo 博客：设计与技术的随手札记，复盘、方法论与一些不成熟的想法。" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23faf9f6'/%3E%3Cg fill='none' stroke='%231a1a1a' stroke-width='3.4' stroke-linecap='square'%3E%3Cpath d='M9 8 V24'/%3E%3Cpath d='M23 8 V24'/%3E%3Cpath d='M9 8 L23 24'/%3E%3C/g%3E%3C/svg%3E"
@@ -42,69 +42,38 @@
     <main>
       <section>
         <div class="wrap">
-          <p class="eyebrow" data-reveal>Contact</p>
-          <h1 class="display" data-reveal data-delay="60">保持<em>沟通</em></h1>
+          <p class="eyebrow" data-reveal>Journal · blog.neftoo.xyz</p>
+          <h1 class="display" data-reveal data-delay="60">写下来的<em>东西</em></h1>
           <p class="lead" style="margin-top: 30px" data-reveal data-delay="120">
-            点击即可复制。微信与手机号同号，邮件一般当天回。
+            乱想、复盘和方法论。观点可能随时被自己推翻，但写下来的过程本身有价值。
           </p>
         </div>
       </section>
 
       <section class="section">
         <div class="wrap">
-          <div class="wrap-narrow">
-            <div class="copy-field" data-reveal>
-              <span class="v">3195824330@qq.com</span>
-              <button
-                class="copy-btn"
-                type="button"
-                data-copy-text="3195824330@qq.com"
-                data-copy-label="复制邮箱"
-              >
-                复制邮箱
-              </button>
-            </div>
+          <div
+            class="blog-layout"
+            data-blog
+            data-blog-index="./blog_file/index.json"
+            data-blog-root="./blog_file"
+          >
+            <aside>
+              <p class="eyebrow">Archive</p>
+              <ul class="post-list" data-post-list>
+                <li class="muted" style="padding: 16px 0">载入中…</li>
+              </ul>
+            </aside>
 
-            <div class="copy-field" data-reveal data-delay="60">
-              <span class="v">+86 183 0209 2414</span>
-              <button
-                class="copy-btn"
-                type="button"
-                data-copy-text="18302092414"
-                data-copy-label="复制手机号"
-              >
-                复制手机号
-              </button>
-            </div>
-
-            <div class="copy-field" data-reveal data-delay="120">
-              <span class="v">github.com/markbunee</span>
-              <a
-                class="copy-btn"
-                href="https://github.com/markbunee"
-                target="_blank"
-                rel="noreferrer"
-                >前往 GitHub</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <div class="sec-head" data-reveal>
-            <div>
-              <p class="eyebrow">Résumé</p>
-              <h2 class="h2">简历下载</h2>
-            </div>
-            <span class="meta">PDF</span>
-          </div>
-          <div class="hero-actions" data-reveal>
-            <a class="btn btn--solid" href="./简历/AI+产品.pdf" download
-              >AI + 产品方向简历 <span class="arw">↓</span></a
-            >
-            <a class="btn" href="./简历/技术面.pdf" download>技术方向简历 <span class="arw">↓</span></a>
+            <article>
+              <div class="reader-head">
+                <h1 data-post-title>载入中…</h1>
+                <p class="m" data-post-meta></p>
+              </div>
+              <div class="prose" data-post-content>
+                <p class="muted">正在读取文章索引…</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>

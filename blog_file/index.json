@@ -1,18 +1,18 @@
 {
   "posts": [
     {
-      "title": "我们应该保有信心，没有条件创造条件",
-      "file": "我们应该保有信心，没有条件创造条件.md",
-      "date": "2025-05-27",
-      "tags": [],
-      "summary": ""
-    },
-    {
       "title": "Concise manual of design and technology",
       "file": "Concise manual of design and technology.md",
       "date": "2025-10-01",
-      "tags": [],
-      "summary": ""
+      "tags": ["Design", "Tech"],
+      "summary": "生医工社区的设计与技术简明手册：帮师弟师妹快速补齐知识结构。"
+    },
+    {
+      "title": "我们应该保有信心，没有条件创造条件",
+      "file": "我们应该保有信心，没有条件创造条件.md",
+      "date": "2025-05-27",
+      "tags": ["随笔", "专业"],
+      "summary": "作为第一届生医工学生，谈谈专业的困境、机遇与自信从哪来。"
     }
   ]
 }

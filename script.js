@@ -1,559 +1,400 @@
-(() => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const siteNav = document.querySelector("#site-nav");
-  const menuToggle = document.querySelector(".menu-toggle");
-  const siteHeader = document.querySelector(".site-header");
+/* =========================================================
+   Neftoo · site interactions
+   ========================================================= */
+(function () {
+  "use strict";
 
-  const normalizeFile = (input) => {
-    if (!input) return "";
-    const raw = input.split("#")[0].split("?")[0];
-    const cleaned = raw.replace(/\\/g, "/");
-    const file = cleaned.split("/").filter(Boolean).pop() || "";
-    return file.toLowerCase();
+  const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+  const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+  /* ---------- scroll progress + header state ---------- */
+  const progress = $(".scroll-progress");
+  const header = $(".site-header");
+
+  const onScroll = () => {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? doc.scrollTop / max : 0;
+    if (progress) progress.style.width = (ratio * 100).toFixed(2) + "%";
+    if (header) header.classList.toggle("is-scrolled", doc.scrollTop > 12);
   };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
 
-  const currentPage = (() => {
-    const file = normalizeFile(window.location.pathname);
-    return file && file.length > 0 ? file : "index.html";
-  })();
+  /* ---------- mobile nav ---------- */
+  const toggle = $(".menu-toggle");
+  const nav = $("#site-nav");
 
-  document.querySelectorAll(".site-nav a").forEach((link) => {
-    const href = link.getAttribute("href");
-    if (!href) return;
-    const cleanHref = normalizeFile(href);
-    if (cleanHref === currentPage) {
-      link.setAttribute("aria-current", "page");
-    } else {
-      link.removeAttribute("aria-current");
-    }
+  if (toggle && nav) {
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = open ? "关闭" : "菜单";
+    };
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    nav.addEventListener("click", (e) => {
+      if (e.target instanceof Element && e.target.closest("a")) setOpen(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+  }
+
+  /* ---------- current page highlight ---------- */
+  const here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  $$(".site-nav a").forEach((a) => {
+    const href = (a.getAttribute("href") || "").split("/").pop().toLowerCase();
+    if (href && href === here) a.setAttribute("aria-current", "page");
   });
 
-  if (menuToggle && siteNav) {
-    menuToggle.addEventListener("click", () => {
-      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
-      menuToggle.setAttribute("aria-expanded", String(!expanded));
-      siteNav.classList.toggle("open");
-    });
-
-    siteNav.querySelectorAll("a").forEach((a) => {
-      a.addEventListener("click", () => {
-        siteNav.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
-
-  const progress = document.querySelector(".scroll-progress");
-  const updateProgress = () => {
-    if (!progress) return;
-    const scrollTop = window.scrollY;
-    const full = document.documentElement.scrollHeight - window.innerHeight;
-    const ratio = full > 0 ? Math.min(scrollTop / full, 1) : 0;
-    progress.style.transform = `scaleX(${ratio})`;
-  };
-
-  const updateHeaderState = () => {
-    if (!siteHeader) return;
-    siteHeader.classList.toggle("is-compact", window.scrollY > 36);
-  };
-
-  updateProgress();
-  updateHeaderState();
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("scroll", updateHeaderState, { passive: true });
-
-  const pageSections = [...document.querySelectorAll("main > section")];
-  if (pageSections.length > 0) {
-    if (!prefersReducedMotion) {
-      const sectionObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            entry.target.classList.toggle("section-active", entry.isIntersecting);
-          });
-        },
-        { threshold: 0.33, rootMargin: "-8% 0px -8% 0px" }
-      );
-
-      pageSections.forEach((section) => sectionObserver.observe(section));
-    } else {
-      pageSections.forEach((section) => section.classList.add("section-active"));
-    }
-  }
-
-  const revealItems = [...document.querySelectorAll("[data-reveal]")];
-  if (!prefersReducedMotion && revealItems.length > 0) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
+  /* ---------- reveal on scroll ---------- */
+  const revealItems = $$("[data-reveal]");
+  if (revealItems.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-            observer.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const delay = Number(el.dataset.delay || 0);
+          setTimeout(() => el.classList.add("is-in"), delay);
+          io.unobserve(el);
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -5% 0px" }
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.06 }
     );
-
-    revealItems.forEach((item, idx) => {
-      item.style.transitionDelay = `${Math.min(idx * 35, 220)}ms`;
-      revealObserver.observe(item);
-    });
+    revealItems.forEach((el) => io.observe(el));
   } else {
-    revealItems.forEach((item) => item.classList.add("revealed"));
+    revealItems.forEach((el) => el.classList.add("is-in"));
   }
 
-  const counters = [...document.querySelectorAll("[data-count-to]")];
-  if (counters.length > 0) {
-    const runCounter = (el) => {
-      if (el.dataset.animated === "true") return;
-      el.dataset.animated = "true";
-
-      const to = Number(el.dataset.countTo || 0);
-      const duration = Number(el.dataset.countDuration || 1200);
-      const decimals = Number(el.dataset.countDecimals || 0);
-      const prefix = el.dataset.prefix || "";
-      const suffix = el.dataset.suffix || "";
-      const start = performance.now();
-
-      const tick = (now) => {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        const value = to * eased;
-        el.textContent = `${prefix}${value.toFixed(decimals)}${suffix}`;
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-
-    const countObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            runCounter(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.45 }
-    );
-
-    counters.forEach((c) => countObserver.observe(c));
-  }
-
-  const tiltCards = [...document.querySelectorAll(".tilt-card")];
-  if (!prefersReducedMotion) {
-    tiltCards.forEach((card) => {
-      const max = 6;
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        card.style.setProperty("--rx", `${(-y * max).toFixed(2)}deg`);
-        card.style.setProperty("--ry", `${(x * max).toFixed(2)}deg`);
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.setProperty("--rx", "0deg");
-        card.style.setProperty("--ry", "0deg");
-      });
-    });
-  }
-
-  if (!prefersReducedMotion) {
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        document.documentElement.style.setProperty("--mouse-x", `${event.clientX}px`);
-        document.documentElement.style.setProperty("--mouse-y", `${event.clientY}px`);
-      },
-      { passive: true }
-    );
-  }
-
-  const parallaxItems = [...document.querySelectorAll("[data-parallax]")];
-  if (!prefersReducedMotion && parallaxItems.length > 0) {
-    const updateParallax = () => {
-      const viewport = window.innerHeight;
-      parallaxItems.forEach((item) => {
-        const rect = item.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const delta = (center - viewport / 2) * -0.04;
-        item.style.setProperty("--parallax", `${delta.toFixed(2)}px`);
-      });
-    };
-    updateParallax();
-    window.addEventListener("scroll", updateParallax, { passive: true });
-    window.addEventListener("resize", updateParallax);
-  }
-
-  const internalLinks = [...document.querySelectorAll("a[href$='.html']")];
-  internalLinks.forEach((link) => {
-    if (link.hasAttribute("download")) return;
-    link.addEventListener("click", (event) => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = link.getAttribute("href");
-      const targetFile = normalizeFile(target);
-      if (!target || targetFile === currentPage) return;
-      event.preventDefault();
-      document.body.classList.add("is-leaving");
-      window.setTimeout(() => {
-        window.location.href = target;
-      }, 230);
-    });
-  });
-
-  const copyButtons = [...document.querySelectorAll("[data-copy-text]")];
-  if (copyButtons.length > 0) {
-    const fallbackCopy = (text) => {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      textarea.style.pointerEvents = "none";
-      document.body.appendChild(textarea);
-      textarea.select();
-      const ok = document.execCommand("copy");
-      document.body.removeChild(textarea);
-      return ok;
-    };
-
-    const copyText = async (text) => {
+  /* ---------- copy to clipboard ---------- */
+  const copy = async (text) => {
+    try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
         return true;
       }
-      return fallbackCopy(text);
-    };
+    } catch (err) {
+      /* fall through */
+    }
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return ok;
+    } catch (err) {
+      return false;
+    }
+  };
 
-    copyButtons.forEach((button) => {
-      const defaultLabel = (button.dataset.copyLabel || button.textContent || "").trim();
-      button.addEventListener("click", async () => {
-        const text = button.dataset.copyText || "";
-        if (!text) return;
-
-        let success = false;
-        try {
-          success = await copyText(text);
-        } catch {
-          success = false;
-        }
-
-        button.classList.remove("is-copied", "is-error");
-        button.classList.add(success ? "is-copied" : "is-error");
-        button.textContent = success ? "已复制" : "复制失败";
-
-        window.setTimeout(() => {
-          button.classList.remove("is-copied", "is-error");
-          button.textContent = defaultLabel;
-        }, 1400);
-      });
+  $$("[data-copy-text]").forEach((btn) => {
+    const label = btn.dataset.copyLabel || "复制";
+    const original = btn.textContent.trim();
+    btn.addEventListener("click", async () => {
+      const ok = await copy(btn.dataset.copyText || "");
+      btn.textContent = ok ? "已复制" : "复制失败";
+      btn.classList.toggle("is-done", ok);
+      setTimeout(() => {
+        btn.textContent = original || label;
+        btn.classList.remove("is-done");
+      }, 1800);
     });
-  }
+  });
 
-  const certDecks = [...document.querySelectorAll("[data-cert-deck]")];
-  if (certDecks.length > 0) {
-    certDecks.forEach((deck) => {
-      const cards = [...deck.querySelectorAll(".cert-deck-card")];
-      if (cards.length === 0) return;
-      const deckWrap = deck.closest(".cert-stack-wrap");
-      const indexEl = deckWrap ? deckWrap.querySelector("[data-cert-index]") : null;
-      const totalEl = deckWrap ? deckWrap.querySelector("[data-cert-total]") : null;
-
-      let topIndex = 0;
-      if (totalEl) totalEl.textContent = String(cards.length);
-
-      const applyDeckState = () => {
-        cards.forEach((card, i) => {
-          const relative = (i - topIndex + cards.length) % cards.length;
-          card.classList.remove("is-top", "is-peek-1", "is-peek-2", "is-peek-3", "is-hidden");
-          if (relative === 0) card.classList.add("is-top");
-          else if (relative === 1) card.classList.add("is-peek-1");
-          else if (relative === 2) card.classList.add("is-peek-2");
-          else if (relative === 3) card.classList.add("is-peek-3");
-          else card.classList.add("is-hidden");
-        });
-        if (indexEl) indexEl.textContent = String(topIndex + 1);
-      };
-
-      const nextCard = () => {
-        topIndex = (topIndex + 1) % cards.length;
-        applyDeckState();
-      };
-
+  /* ---------- product matrix filter ---------- */
+  const filterBar = $("[data-filters]");
+  if (filterBar) {
+    const cards = $$("[data-cat]");
+    filterBar.addEventListener("click", (event) => {
+      const btn = event.target instanceof Element ? event.target.closest("button[data-filter]") : null;
+      if (!btn) return;
+      const value = btn.dataset.filter;
+      $$("button[data-filter]", filterBar).forEach((b) =>
+        b.setAttribute("aria-pressed", String(b === btn))
+      );
       cards.forEach((card) => {
-        card.addEventListener("click", (event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          nextCard();
-        });
+        const match = value === "all" || card.dataset.cat === value;
+        card.classList.toggle("is-hidden", !match);
       });
-
-      applyDeckState();
     });
   }
 
-  const blogShell = document.querySelector("[data-blog-index][data-blog-root]");
-  if (blogShell) {
-    const indexUrl = blogShell.dataset.blogIndex || "";
-    const root = blogShell.dataset.blogRoot || "";
-    const listEl = blogShell.querySelector("[data-blog-list]");
-    const titleEl = blogShell.querySelector("[data-blog-title]");
-    const metaEl = blogShell.querySelector("[data-blog-meta]");
-    const contentEl = blogShell.querySelector("[data-blog-content]");
+  /* =========================================================
+     Markdown
+     ========================================================= */
+  const escapeHtml = (value) =>
+    String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
 
-    const escapeHtml = (value) =>
-      String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/\"/g, "&quot;")
-        .replace(/'/g, "&#39;");
+  const inline = (value) => {
+    let text = escapeHtml(value);
+    text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2" />');
+    text = text.replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
+    text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
+    text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    text = text.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+    text = text.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+    return text;
+  };
 
-    const formatInline = (value) => {
-      let text = escapeHtml(value);
-      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-      text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
-      text = text.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-      text = text.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-      return text;
+  const markdownToHtml = (md) => {
+    const lines = String(md || "").replace(/\r\n/g, "\n").split("\n");
+    let html = "";
+    let inCode = false;
+    let codeLang = "";
+    let codeBuf = [];
+    let listMode = "";
+
+    const closeList = () => {
+      if (!listMode) return;
+      html += listMode === "ol" ? "</ol>" : "</ul>";
+      listMode = "";
     };
 
-    const markdownToHtml = (md) => {
-      const lines = String(md || "").replace(/\r\n/g, "\n").split("\n");
-      let html = "";
-      let inCode = false;
-      let codeLang = "";
-      let codeBuf = [];
-      let listMode = "";
+    const flushCode = () => {
+      const code = escapeHtml(codeBuf.join("\n"));
+      const lang = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
+      html += `<pre><code${lang}>${code}</code></pre>`;
+      inCode = false;
+      codeLang = "";
+      codeBuf = [];
+    };
 
-      const closeList = () => {
-        if (!listMode) return;
-        html += listMode === "ol" ? "</ol>" : "</ul>";
-        listMode = "";
-      };
+    lines.forEach((raw) => {
+      const line = raw || "";
 
-      lines.forEach((raw) => {
-        const line = raw || "";
-
-        const fence = line.match(/^```\s*([^\s`]+)?\s*$/);
-        if (fence) {
-          if (!inCode) {
-            closeList();
-            inCode = true;
-            codeLang = fence[1] || "";
-            codeBuf = [];
-          } else {
-            const code = escapeHtml(codeBuf.join("\n"));
-            const langClass = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
-            html += `<pre><code${langClass}>${code}</code></pre>`;
-            inCode = false;
-            codeLang = "";
-            codeBuf = [];
-          }
-          return;
-        }
-
-        if (inCode) {
-          codeBuf.push(line);
-          return;
-        }
-
-        const heading = line.match(/^(#{1,3})\s+(.+)$/);
-        if (heading) {
+      const fence = line.match(/^```\s*([^\s`]+)?\s*$/);
+      if (fence) {
+        if (!inCode) {
           closeList();
-          const level = heading[1].length;
-          html += `<h${level}>${formatInline(heading[2])}</h${level}>`;
-          return;
+          inCode = true;
+          codeLang = fence[1] || "";
+          codeBuf = [];
+        } else {
+          flushCode();
         }
-
-        const quote = line.match(/^>\s?(.+)$/);
-        if (quote) {
-          closeList();
-          html += `<blockquote><p>${formatInline(quote[1])}</p></blockquote>`;
-          return;
-        }
-
-        const ul = line.match(/^-\s+(.+)$/);
-        if (ul) {
-          if (listMode !== "ul") {
-            closeList();
-            listMode = "ul";
-            html += "<ul>";
-          }
-          html += `<li>${formatInline(ul[1])}</li>`;
-          return;
-        }
-
-        const ol = line.match(/^\d+\.\s+(.+)$/);
-        if (ol) {
-          if (listMode !== "ol") {
-            closeList();
-            listMode = "ol";
-            html += "<ol>";
-          }
-          html += `<li>${formatInline(ol[1])}</li>`;
-          return;
-        }
-
-        if (line.trim().length === 0) {
-          closeList();
-          return;
-        }
-
-        closeList();
-        html += `<p>${formatInline(line)}</p>`;
-      });
-
-      closeList();
-      if (inCode) {
-        const code = escapeHtml(codeBuf.join("\n"));
-        const langClass = codeLang ? ` class="language-${escapeHtml(codeLang)}"` : "";
-        html += `<pre><code${langClass}>${code}</code></pre>`;
+        return;
       }
 
-      return html;
-    };
+      if (inCode) {
+        codeBuf.push(line);
+        return;
+      }
 
-    const normalizePath = (value) => String(value || "").replace(/\\/g, "/").replace(/^\/+/, "");
-    const joinPath = (base, file) => `${String(base || "").replace(/\/+$/, "")}/${normalizePath(file)}`;
+      const heading = line.match(/^(#{1,6})\s+(.+)$/);
+      if (heading) {
+        closeList();
+        const level = Math.min(heading[1].length, 4);
+        html += `<h${level}>${inline(heading[2])}</h${level}>`;
+        return;
+      }
 
-    const getHashFile = () => {
-      const hash = (window.location.hash || "").replace(/^#/, "");
-      const match = hash.match(/(?:^|&)blog=([^&]+)/);
-      return match ? decodeURIComponent(match[1]) : "";
-    };
+      if (/^\s*(---|\*\*\*|___)\s*$/.test(line)) {
+        closeList();
+        html += "<hr />";
+        return;
+      }
 
-    const setHashFile = (file) => {
-      const next = `#blog=${encodeURIComponent(file)}`;
-      if (window.location.hash !== next) window.history.replaceState(null, "", next);
-    };
+      const quote = line.match(/^>\s?(.*)$/);
+      if (quote) {
+        closeList();
+        html += `<blockquote><p>${inline(quote[1])}</p></blockquote>`;
+        return;
+      }
 
-    const renderList = (posts, activeFile) => {
+      const ul = line.match(/^\s*[-*+]\s+(.+)$/);
+      if (ul) {
+        if (listMode !== "ul") {
+          closeList();
+          listMode = "ul";
+          html += "<ul>";
+        }
+        html += `<li>${inline(ul[1])}</li>`;
+        return;
+      }
+
+      const ol = line.match(/^\s*\d+[.)]\s+(.+)$/);
+      if (ol) {
+        if (listMode !== "ol") {
+          closeList();
+          listMode = "ol";
+          html += "<ol>";
+        }
+        html += `<li>${inline(ol[1])}</li>`;
+        return;
+      }
+
+      if (line.trim().length === 0) {
+        closeList();
+        return;
+      }
+
+      closeList();
+      html += `<p>${inline(line)}</p>`;
+    });
+
+    closeList();
+    if (inCode) flushCode();
+    return html;
+  };
+
+  /* =========================================================
+     Blog loading
+     ========================================================= */
+  const normalizePath = (v) => String(v || "").replace(/\\/g, "/").replace(/^\/+/, "");
+  const joinPath = (base, file) => `${String(base || "").replace(/\/+$/, "")}/${normalizePath(file)}`;
+
+  const readHash = () => {
+    const hash = (location.hash || "").replace(/^#/, "");
+    const m = hash.match(/(?:^|&)p=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  };
+
+  const writeHash = (file) => {
+    const next = `#p=${encodeURIComponent(file)}`;
+    if (location.hash !== next) history.replaceState(null, "", next);
+  };
+
+  const estimate = (text) => Math.max(1, Math.round(String(text || "").replace(/\s/g, "").length / 400));
+
+  const loadIndex = async (url) => {
+    const res = await fetch(url, { cache: "no-cache" });
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    const posts = Array.isArray(data) ? data : data.posts || [];
+    return posts
+      .filter((p) => p && p.file)
+      .map((p) => ({
+        title: p.title || p.file,
+        file: normalizePath(p.file),
+        date: p.date || "",
+        tags: Array.isArray(p.tags) ? p.tags : [],
+        summary: p.summary || "",
+      }))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  };
+
+  /* --- full reader (blog.html) --- */
+  const shell = $("[data-blog]");
+  if (shell) {
+    const indexUrl = shell.dataset.blogIndex || "./blog_file/index.json";
+    const root = shell.dataset.blogRoot || "./blog_file";
+    const listEl = $("[data-post-list]", shell);
+    const titleEl = $("[data-post-title]", shell);
+    const metaEl = $("[data-post-meta]", shell);
+    const contentEl = $("[data-post-content]", shell);
+
+    let posts = [];
+
+    const renderList = (active) => {
       if (!listEl) return;
       listEl.innerHTML = "";
-
       posts.forEach((post) => {
-        const file = normalizePath(post.file || "");
         const li = document.createElement("li");
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.dataset.blogFile = file;
-        btn.setAttribute("aria-current", String(file === activeFile));
-
-        const t = document.createElement("div");
-        t.className = "blog-post-title";
-        t.textContent = post.title || file || "Untitled";
-
-        const m = document.createElement("div");
-        m.className = "blog-post-meta";
-        m.textContent = [post.date, post.summary].filter(Boolean).join(" · ");
-
-        btn.appendChild(t);
-        btn.appendChild(m);
+        btn.dataset.file = post.file;
+        btn.setAttribute("aria-current", String(post.file === active));
+        btn.innerHTML =
+          `<span class="t">${escapeHtml(post.title)}</span>` +
+          `<span class="m">${escapeHtml(post.date || "—")}${
+            post.tags.length ? " · " + escapeHtml(post.tags.join(" / ")) : ""
+          }</span>`;
+        btn.addEventListener("click", () => open(post));
         li.appendChild(btn);
         listEl.appendChild(li);
       });
     };
 
-    const setActiveButton = (activeFile) => {
+    const markActive = (file) => {
       if (!listEl) return;
-      listEl.querySelectorAll("button[data-blog-file]").forEach((btn) => {
-        btn.setAttribute("aria-current", String(btn.dataset.blogFile === activeFile));
-      });
+      $$("button[data-file]", listEl).forEach((b) =>
+        b.setAttribute("aria-current", String(b.dataset.file === file))
+      );
     };
 
-    const loadPost = async (post) => {
-      const file = normalizePath(post.file || "");
-      if (!file || !contentEl || !titleEl || !metaEl) return;
-
-      setActiveButton(file);
-      titleEl.textContent = post.title || file;
-      metaEl.textContent = [post.date, post.tags && post.tags.length ? post.tags.join(" / ") : ""].filter(Boolean).join(" · ");
-      contentEl.textContent = "加载中…";
+    const open = async (post) => {
+      markActive(post.file);
+      if (titleEl) titleEl.textContent = post.title;
+      if (metaEl) metaEl.textContent = post.date || "";
+      if (contentEl) contentEl.innerHTML = '<p class="muted">载入中…</p>';
+      window.scrollTo({ top: 0, behavior: "auto" });
 
       try {
-        const res = await fetch(joinPath(root, file), { cache: "no-cache" });
+        const res = await fetch(joinPath(root, post.file), { cache: "no-cache" });
         if (!res.ok) throw new Error(String(res.status));
         const md = await res.text();
-        contentEl.innerHTML = markdownToHtml(md);
-        setHashFile(file);
-      } catch {
-        contentEl.textContent = "加载失败：请检查 blog_file/index.json 与对应 Markdown 文件是否存在，并确保在 HTTP 服务下访问页面。";
-      }
-    };
-
-    const loadIndex = async () => {
-      if (!indexUrl || !listEl || !contentEl || !titleEl || !metaEl) return;
-
-      try {
-        const res = await fetch(indexUrl, { cache: "no-cache" });
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
-        const posts = Array.isArray(data) ? data : Array.isArray(data.posts) ? data.posts : [];
-        const normalized = posts
-          .map((p) => ({
-            title: p.title || "",
-            file: normalizePath(p.file || ""),
-            date: p.date || "",
-            tags: Array.isArray(p.tags) ? p.tags : [],
-            summary: p.summary || "",
-          }))
-          .filter((p) => p.file.length > 0);
-
-        const hashFile = normalizePath(getHashFile());
-        const initial = normalized.find((p) => p.file === hashFile) || normalized[0];
-
-        renderList(normalized, initial ? initial.file : "");
-
-        if (!initial) {
-          titleEl.textContent = "暂无文章";
-          metaEl.textContent = "";
-          contentEl.textContent = "在 blog_file/index.json 里添加文章索引即可显示。";
-          return;
+        if (contentEl) contentEl.innerHTML = markdownToHtml(md);
+        if (metaEl) {
+          metaEl.textContent = [post.date, `${estimate(md)} min read`]
+            .concat(post.tags.length ? [post.tags.join(" / ")] : [])
+            .join(" · ");
         }
-
-        await loadPost(initial);
-
-        listEl.addEventListener("click", (event) => {
-          const target = event.target instanceof Element ? event.target.closest("button[data-blog-file]") : null;
-          if (!target) return;
-          const file = normalizePath(target.dataset.blogFile || "");
-          const selected = normalized.find((p) => p.file === file);
-          if (selected) loadPost(selected);
-        });
-
-        window.addEventListener("hashchange", () => {
-          const file = normalizePath(getHashFile());
-          if (!file) return;
-          const selected = normalized.find((p) => p.file === file);
-          if (selected) loadPost(selected);
-        });
-      } catch {
-        if (listEl) listEl.innerHTML = "";
-        titleEl.textContent = "Blog 未配置";
-        metaEl.textContent = "";
-        contentEl.textContent = "未能读取 ./blog_file/index.json：请创建 blog_file 目录与 index.json，并确保通过 HTTP 服务访问（直接双击打开可能会被浏览器拦截 fetch）。";
+        writeHash(post.file);
+      } catch (err) {
+        if (contentEl) {
+          contentEl.innerHTML =
+            '<p class="muted">文章加载失败。请通过 HTTP 服务访问本站（不要直接双击打开 file://），并确认 blog_file/index.json 中的文件名与实际一致。</p>';
+        }
       }
     };
 
-    loadIndex();
+    loadIndex(indexUrl)
+      .then((list) => {
+        posts = list;
+        if (!posts.length) throw new Error("empty");
+        const wanted = readHash();
+        const first = posts.find((p) => p.file === wanted) || posts[0];
+        renderList(first.file);
+        open(first);
+      })
+      .catch(() => {
+        if (listEl) listEl.innerHTML = '<li class="muted" style="padding:16px 0">文章索引加载失败</li>';
+        if (contentEl) {
+          contentEl.innerHTML = '<p class="muted">无法读取 blog_file/index.json，请确认文件存在并通过 HTTP 服务访问。</p>';
+        }
+      });
   }
+
+  /* --- latest posts (home) --- */
+  const latest = $("[data-latest]");
+  if (latest) {
+    const indexUrl = latest.dataset.blogIndex || "./blog_file/index.json";
+    const limit = Number(latest.dataset.limit || 3);
+    loadIndex(indexUrl)
+      .then((posts) => {
+        const picked = posts.slice(0, limit);
+        latest.innerHTML = picked
+          .map(
+            (p) =>
+              `<a href="./blog.html#p=${encodeURIComponent(p.file)}">` +
+              `<span class="d">${escapeHtml(p.date || "")}</span>` +
+              `<span class="t">${escapeHtml(p.title)}</span>` +
+              `<span class="x">${escapeHtml(p.summary || "阅读全文")}</span>` +
+              `</a>`
+          )
+          .join("");
+      })
+      .catch(() => {
+        latest.innerHTML = '<a href="./blog.html"><span class="t">前往博客</span></a>';
+      });
+  }
+
+  /* ---------- footer year ---------- */
+  const yearEl = $("[data-year]");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 })();
-
-
-// 主页设计
-// 在 script.js 中添加
-// 在 script.js 中添加或增强鼠标跟随逻辑
-document.addEventListener('mousemove', (e) => {
-    // 1. 更新 CSS 变量 (您样式中已有的)
-    document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-    document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-
-    // 2. 增加轻微的视差偏移给英雄图片
-    const visual = document.querySelector('.hero-visual');
-    if (visual) {
-        const moveX = (e.clientX - window.innerWidth / 2) / 50;
-        const moveY = (e.clientY - window.innerHeight / 2) / 50;
-        visual.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-    }
-});

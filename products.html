@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Neftoo · 马炫轩 Owen Ma</title>
+    <title>产品矩阵 | Neftoo</title>
     <meta
       name="description"
-      content="Neftoo 是马炫轩（Owen Ma）的产品矩阵：Skime 多智能体平台、Mawork 个人 AI 工作操作系统、Ticketsys 门店工单系统、CRDB 医药销售数据系统，统一收录于 neftoo.xyz。"
+      content="Neftoo 产品矩阵：Skime 多智能体平台、Mawork 个人 AI 工作操作系统、Ticketsys 门店工单系统、CRDB 医药销售数据系统，统一收录于 neftoo.xyz。"
     />
     <link
       rel="icon"
@@ -43,61 +43,36 @@
     </header>
 
     <main>
-      <!-- ================= HERO ================= -->
-      <section class="hero">
-        <div class="hero-grid" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="wrap hero-inner">
-          <p class="eyebrow" data-reveal>Neftoo · Product Matrix</p>
-          <h1 class="display" data-reveal data-delay="60">
-            做一点<br /><em>真的</em> 有用的东西
-          </h1>
-
-          <div class="hero-sub">
-            <p class="lead" data-reveal data-delay="140">
-              我是马炫轩 Owen Ma，广东工业大学 · 生物医学工程在读。过去三年我把时间投在
-              AI 应用落地、医药数据系统与多智能体系统上——它们现在都收在
-              <span class="mono">neftoo.xyz</span> 这一个域名之下。
-            </p>
-            <div class="hero-actions" data-reveal data-delay="200">
-              <a class="btn btn--solid" href="./products.html"
-                >浏览产品矩阵 <span class="arw">→</span></a
-              >
-              <a class="btn" href="./contact.html">联系我</a>
-            </div>
-          </div>
-
-          <div class="hero-facts" data-reveal data-delay="260">
-            <div class="fact">
-              <span class="k">Direction</span>
-              <span class="v">AI 应用 · 多智能体 · 医药数据</span>
-            </div>
-            <div class="fact">
-              <span class="k">Base</span>
-              <span class="v">广州 · 广东工业大学 BME</span>
-            </div>
-            <div class="fact">
-              <span class="k">Status</span>
-              <span class="v">开放 2026 实习 / 全职机会</span>
-            </div>
-            <div class="fact">
-              <span class="k">Email</span>
-              <span class="v">3195824330@qq.com</span>
-            </div>
-          </div>
+      <section>
+        <div class="wrap">
+          <p class="eyebrow" data-reveal>Products</p>
+          <h1 class="display" data-reveal data-delay="60">产品<em>矩阵</em></h1>
+          <p class="lead" style="margin-top: 30px" data-reveal data-delay="120">
+            所有东西都放在同一个域名下面。有的已经跑在生产里，有的还在压测，
+            有的只是某个下午的念头——但它们共享同一套做事方式：<span class="serif"
+              >先想清楚问题，再写第一行代码</span
+            >。
+          </p>
         </div>
       </section>
 
-      <!-- ================= PRODUCT MATRIX ================= -->
       <section class="section">
         <div class="wrap">
           <div class="sec-head" data-reveal>
             <div>
-              <p class="eyebrow">01 — Products</p>
-              <h2 class="h1">产品矩阵</h2>
+              <p class="eyebrow">Index</p>
+              <h2 class="h2">全部条目</h2>
             </div>
-            <span class="meta">四个产品 · 一个域名</span>
+            <span class="meta">点击卡片前往对应子域</span>
+          </div>
+
+          <div class="filters" data-filters>
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="agent" aria-pressed="false">Agent</button>
+            <button type="button" data-filter="os" aria-pressed="false">Work OS</button>
+            <button type="button" data-filter="ops" aria-pressed="false">Ticketing</button>
+            <button type="button" data-filter="data" aria-pressed="false">Data</button>
+            <button type="button" data-filter="journal" aria-pressed="false">Journal</button>
           </div>
 
           <div class="matrix">
@@ -107,7 +82,6 @@
               href="https://skime.neftoo.xyz"
               target="_blank"
               rel="noreferrer"
-              data-reveal
             >
               <div class="pcard-top">
                 <span class="pcard-idx">01 · Agent</span>
@@ -126,15 +100,7 @@
               <span class="pcard-go">↗</span>
             </a>
 
-            <a
-              class="pcard"
-              data-cat="os"
-              href="https://mawork.neftoo.xyz"
-              target="_blank"
-              rel="noreferrer"
-              data-reveal
-              data-delay="60"
-            >
+            <a class="pcard" data-cat="os" href="https://mawork.neftoo.xyz" target="_blank" rel="noreferrer">
               <div class="pcard-top">
                 <span class="pcard-idx">02 · Work OS</span>
                 <span class="status" data-s="live"><i></i>Live</span>
@@ -143,21 +109,13 @@
               <span class="domain">mawork.neftoo.xyz</span>
               <p>
                 个人 AI 工作操作系统。把日程、日报、记账、任务与资料结构化，让 AI Agent
-                直接读取分析与回写，形成「记录 → 沉淀 → 复盘 → 规划 → 执行」飞轮。
+                直接读取分析与回写，形成「记录 → 沉淀 → 复盘 → 规划 → 执行」飞轮；数据本地化为 Markdown + SQLite，无云端锁定。
               </p>
               <div class="tags"><span>FastAPI</span><span>Vue3</span><span>ECharts</span><span>SQLite</span><span>Agent</span></div>
               <span class="pcard-go">↗</span>
             </a>
 
-            <a
-              class="pcard"
-              data-cat="ops"
-              href="https://ticketsys.neftoo.xyz"
-              target="_blank"
-              rel="noreferrer"
-              data-reveal
-              data-delay="120"
-            >
+            <a class="pcard" data-cat="ops" href="https://ticketsys.neftoo.xyz" target="_blank" rel="noreferrer">
               <div class="pcard-top">
                 <span class="pcard-idx">03 · Ticketing</span>
                 <span class="status" data-s="wip"><i></i>In Review</span>
@@ -166,20 +124,13 @@
               <span class="domain">ticketsys.neftoo.xyz</span>
               <p>
                 门店促销员工单系统，由 CloudBase 版重构而来，支持 1000+
-                并发：促销员 H5 接单 / 凭证上传 / 销量填报 + Web 管理后台 + 看板统计。
+                并发：促销员 H5 接单 / 凭证上传 / 销量填报 + Web 管理后台 + 看板统计 + Excel 批量发单与导出。
               </p>
               <div class="tags"><span>FastAPI</span><span>SQLAlchemy</span><span>PostgreSQL</span><span>Redis</span><span>MinIO</span></div>
               <span class="pcard-go">↗</span>
             </a>
 
-            <a
-              class="pcard"
-              data-cat="data"
-              href="https://crdb.neftoo.xyz"
-              target="_blank"
-              rel="noreferrer"
-              data-reveal
-            >
+            <a class="pcard" data-cat="data" href="https://crdb.neftoo.xyz" target="_blank" rel="noreferrer">
               <div class="pcard-top">
                 <span class="pcard-idx">04 · Data</span>
                 <span class="status" data-s="live"><i></i>Live</span>
@@ -187,19 +138,14 @@
               <h3>CRDB</h3>
               <span class="domain">crdb.neftoo.xyz</span>
               <p>
-                面向大参林 / 高济 / 海王三家连锁药店的销售数据查询、维护、统计与导出，后端针对千万级数据专项优化。
+                面向大参林 / 高济 / 海王三家连锁药店的销售数据查询、维护、统计与导出，后端针对千万级数据专项优化（GIN
+                全文检索、游标分页、流式导出）。
               </p>
               <div class="tags"><span>FastAPI</span><span>PostgreSQL</span><span>Vue3</span><span>ECharts</span><span>千万级优化</span></div>
               <span class="pcard-go">↗</span>
             </a>
 
-            <a
-              class="pcard"
-              data-cat="journal"
-              href="./blog.html"
-              data-reveal
-              data-delay="60"
-            >
+            <a class="pcard" data-cat="journal" href="./blog.html">
               <div class="pcard-top">
                 <span class="pcard-idx">05 · Journal</span>
                 <span class="status" data-s="live"><i></i>Writing</span>
@@ -211,82 +157,44 @@
               <span class="pcard-go">↗</span>
             </a>
           </div>
-
-          <div style="margin-top: 28px" data-reveal>
-            <a class="btn" href="./products.html">查看完整矩阵 <span class="arw">→</span></a>
-          </div>
         </div>
       </section>
 
-      <!-- ================= NOW ================= -->
       <section class="section">
         <div class="wrap">
           <div class="sec-head" data-reveal>
             <div>
-              <p class="eyebrow">02 — Now</p>
-              <h2 class="h1">最近在做</h2>
+              <p class="eyebrow">Domains</p>
+              <h2 class="h2">域名索引</h2>
             </div>
-            <span class="meta">2026</span>
+            <span class="meta">neftoo.xyz</span>
           </div>
 
-          <div class="grid grid--3">
-            <div class="cell" data-reveal>
-              <h3>智能体落地</h3>
-              <p>
-                把员工交接与自动化办公场景沉淀成产品能力，接入知识库、MCP
-                与文档暂存，向内立项、向外找可复制的行业场景。
-              </p>
+          <div class="wrap-narrow" data-reveal>
+            <div class="kv">
+              <span class="k">neftoo.xyz</span>
+              <span class="v">主域 · 站点与产品索引入口</span>
             </div>
-            <div class="cell" data-reveal data-delay="60">
-              <h3>医疗 AI 工程化</h3>
-              <p>
-                在真实检测数据上做细胞识别与分割，并把诊疗报告智能体接到
-                PubMed，让每一句结论都能追溯来源。
-              </p>
+            <div class="kv">
+              <span class="k">skime.neftoo.xyz</span>
+              <span class="v">超级智能体平台</span>
             </div>
-            <div class="cell" data-reveal data-delay="120">
-              <h3>个人工作 OS</h3>
-              <p>
-                把日常工作流（日程、日报、记账、复盘）交给 Agent
-                打理，让数据真正沉淀为可分析、可回写的资产。
-              </p>
+            <div class="kv">
+              <span class="k">mawork.neftoo.xyz</span>
+              <span class="v">个人 AI 工作操作系统</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= LATEST WRITING ================= -->
-      <section class="section">
-        <div class="wrap">
-          <div class="sec-head" data-reveal>
-            <div>
-              <p class="eyebrow">03 — Journal</p>
-              <h2 class="h1">最近的文字</h2>
+            <div class="kv">
+              <span class="k">ticketsys.neftoo.xyz</span>
+              <span class="v">门店促销员工单系统</span>
             </div>
-            <a class="meta" href="./blog.html">全部文章 →</a>
-          </div>
-
-          <div class="latest" data-latest data-blog-index="./blog_file/index.json" data-limit="3">
-            <a href="./blog.html"><span class="t">载入中…</span></a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= CTA ================= -->
-      <section class="section">
-        <div class="wrap">
-          <div class="sec-head" data-reveal>
-            <div>
-              <p class="eyebrow">04 — Contact</p>
-              <h2 class="h1">聊聊？</h2>
+            <div class="kv">
+              <span class="k">crdb.neftoo.xyz</span>
+              <span class="v">医药连锁销售数据系统</span>
             </div>
-          </div>
-          <p class="lead" data-reveal>
-            如果你也在做 AI 产品、医学 AI，或者只是想交换点想法，欢迎直接找我。
-          </p>
-          <div class="hero-actions" data-reveal data-delay="80">
-            <a class="btn btn--solid" href="./contact.html">获取联系方式 <span class="arw">→</span></a>
-            <a class="btn" href="https://github.com/markbunee" target="_blank" rel="noreferrer">GitHub</a>
+            <div class="kv">
+              <span class="k">blog.neftoo.xyz</span>
+              <span class="v">写作与笔记</span>
+            </div>
           </div>
         </div>
       </section>
